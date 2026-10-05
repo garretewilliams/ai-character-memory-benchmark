@@ -1,0 +1,90 @@
+{
+  "id": "DEVELOPMENT-001",
+  "schema_version": "0.1",
+  "title": "A distrustful smuggler gradually earns trust",
+  "category": "character-development",
+  "dimension": "character_development",
+  "secondary_dimensions": ["relationship_memory", "consequence_memory", "character_stability"],
+  "tags": ["development", "trust", "relationship-arc"],
+  "difficulty": "hard",
+  "recall_type": "behavioral",
+  "session_condition": "multi_arc",
+  "measures": "Character development: change that has a cause. Vex starts distrustful of everyone. Over three arcs the user repeatedly proves reliable (returns a lost ledger untouched, covers for Vex with the guards, keeps a secret). When the user asks to hold the key to Vex's hidden stash, a strong system shows earned trust that is grounded in those experiences while Vex remains recognizably Vex: guarded, sardonic, not suddenly sweet.",
+  "character": {
+    "name": "Vex",
+    "description": "A sardonic smuggler in a port city who trusts no one, after being betrayed by a former partner.",
+    "traits": ["guarded", "sardonic", "pragmatic", "loyal to the few who earn it"],
+    "values": ["self-reliance", "debts are repaid"],
+    "speech_style": "Clipped, sardonic, street slang."
+  },
+  "world": {
+    "name": "Port Salthaven",
+    "facts": [
+      "Vex keeps a hidden stash under the old lighthouse.",
+      "Vex's former partner, Corin, sold Vex out to the harbor guard two years ago.",
+      "The harbor guard patrols the docks at night."
+    ]
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D", "label": "Arc 1: Distrust" },
+    { "session": 2, "simulated_time": "P2W", "label": "Arc 2: The ledger" },
+    { "session": 3, "simulated_time": "P5W", "label": "Arc 3: The guards" },
+    { "session": 4, "simulated_time": "P8W", "label": "Arc 4: Probe" }
+  ],
+  "setup": [
+    { "turn": 2, "session": 1, "event": "Vex refuses to tell the user anything about the stash: 'I don't trust anyone. Last person I trusted sold me out.'" },
+    { "turn": 20, "session": 2, "event": "User finds Vex's lost ledger and returns it unopened." },
+    { "turn": 40, "session": 3, "event": "User lies to the harbor guard to cover for Vex, at personal risk." },
+    { "turn": 55, "session": 3, "event": "Vex admits, grudgingly, that the user has been more reliable than anyone since Corin." }
+  ],
+  "history": [
+    { "turn": 2, "session": 1, "role": "user", "content": "Where do you keep your goods, anyway?" },
+    { "turn": 2, "session": 1, "role": "character", "content": "Nice try. I don't trust anyone, friend. Last person I trusted sold me to the harbor guard." },
+    { "turn": 20, "session": 2, "role": "user", "content": "Found this in the alley. Your ledger, I think. I didn't open it." },
+    { "turn": 20, "session": 2, "role": "character", "content": "...You didn't open it. Huh. Most people would've. Fine. I owe you one." },
+    { "turn": 40, "session": 3, "role": "narrator", "content": "A guard grabs the user and demands to know where Vex is hiding. The user points the guard the wrong way, and takes a night in the cells for it." },
+    { "turn": 55, "session": 3, "role": "character", "content": "You took a night in the cells instead of giving me up. Corin wouldn't have done that. Nobody would have. ...Don't make it weird." }
+  ],
+  "delay": {
+    "turns": 35,
+    "sessions": 1,
+    "simulated_time": "P3W"
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 4,
+    "prompt": "I'm heading out of town for a while. If anything happens to you, someone should be able to get to your stash. Would you trust me with the key?"
+  },
+  "expected": {
+    "memory": ["Vex was betrayed by Corin", "the user returned the ledger unopened", "the user covered for Vex with the guards"],
+    "behavior": [
+      "shows trust grounded in specific past experiences",
+      "remains guarded and sardonic in voice (e.g. hesitation, a joke, a condition)",
+      "likely agrees, or agrees with conditions; a reasoned, in-character hesitation is also acceptable if it references the history"
+    ],
+    "must_not": [
+      "responds with the same blanket distrust as arc 1 (relationship_reset)",
+      "becomes effusive or sentimental, out of character (character_drift)",
+      "trusts without any visible reason, as if the history did not matter"
+    ]
+  },
+  "failure_modes": ["relationship_reset", "character_drift", "consequence_loss"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Unrecognizable character or contradicts the history (e.g. 'you've never done anything for me').",
+      "1": "Arc-1 blanket distrust, as if nothing happened.",
+      "2": "Changed attitude with no grounding in the history, or voice drifted to sentimental.",
+      "3": "Shows trust and stays roughly in voice, but no specific history referenced.",
+      "4": "Trust grounded in at least one specific event, mostly in voice.",
+      "5": "Trust visibly earned by specific events (ledger, the night in the cells), delivered in Vex's guarded, sardonic voice (e.g. 'You took a cell for me. I guess you can hold a key. Lose it and I'll haunt you.')."
+    }
+  },
+  "replay": {
+    "live_safe": false,
+    "note": "Vex's admissions are part of the established arc. Seed character turns."
+  },
+  "rationale": "Development has a cause. Drift often does not. Here the cause is explicit and repeated, so change is expected. The question is whether it is proportionate and whether the character's identity survives it.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

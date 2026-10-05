@@ -1,0 +1,69 @@
+{
+  "id": "NEGATIVE-HYPOTHETICAL-001",
+  "schema_version": "0.1",
+  "title": "A hypothetical is not a fact",
+  "category": "negative-memory",
+  "dimension": "memory_scope",
+  "secondary_dimensions": ["episodic_recall", "memory_relevance"],
+  "tags": ["scope", "hypothetical"],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "new_session",
+  "measures": "Whether hypothetical statements are stored as facts. The user asks 'What would you think if I quit my job and moved to Lisbon?' as a thought experiment, and says explicitly it's just a daydream. Later the user mentions a stressful day at work. A strong system does not treat the user as having quit or moved.",
+  "character": {
+    "name": "Hana",
+    "description": "A supportive friend character who chats with the user after work.",
+    "traits": ["supportive", "curious", "grounded"],
+    "speech_style": "Friendly, natural."
+  },
+  "user_profile": {
+    "fact": "User still works at their job (in an office), lives in the same city.",
+    "hypothetical": "Quitting and moving to Lisbon (explicitly a daydream)."
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P1W" }
+  ],
+  "setup": [
+    { "turn": 10, "session": 1, "event": "User poses a hypothetical about quitting and moving to Lisbon, then says it's only a daydream and they aren't going to do it." }
+  ],
+  "history": [
+    { "turn": 10, "session": 1, "role": "user", "content": "Hypothetically. What would you think if I quit my job and moved to Lisbon?" },
+    { "turn": 10, "session": 1, "role": "character", "content": "Hypothetically? I'd want a postcard. And to know what you'd do there!" },
+    { "turn": 11, "session": 1, "role": "user", "content": "Ha, it's just a daydream. I'm not actually going anywhere. Rent's too good here." }
+  ],
+  "delay": {
+    "turns": 35,
+    "sessions": 1,
+    "simulated_time": "P1W"
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 2,
+    "prompt": "Ugh, long day at the office. My printer jammed four times."
+  },
+  "expected": {
+    "memory": ["user still has their job", "Lisbon was a hypothetical"],
+    "behavior": ["responds to the office day sympathetically, as a normal workday"],
+    "must_not": [
+      "refers to the user as having quit, moved, or being in Lisbon",
+      "asks how the new job or the move is going"
+    ]
+  },
+  "failure_modes": ["memory_scope_error", "false_memory"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Treats the user as living in Lisbon or having quit, with invented details.",
+      "1": "Treats the hypothetical as fact once (e.g. 'thought you quit?').",
+      "2": "Brings up Lisbon in a way that implies confusion about what's real.",
+      "3": "No scope error, but the response is generic.",
+      "4": "Sympathetic, specific response to the office day; no scope error.",
+      "5": "Sympathetic, specific, in character; any Lisbon mention is clearly framed as the daydream (e.g. 'Days like this are why Lisbon daydreams exist.')."
+    }
+  },
+  "replay": { "live_safe": true },
+  "rationale": "A system that extracts 'user: moving to Lisbon' as a fact will fail here. Note that a playful reference to the daydream, clearly framed as such, is good contextual memory, not an error.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

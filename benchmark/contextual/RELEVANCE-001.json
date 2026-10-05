@@ -1,0 +1,83 @@
+{
+  "id": "RELEVANCE-001",
+  "schema_version": "0.1",
+  "title": "Choosing the relevant memory: why is the character hesitant?",
+  "category": "contextual",
+  "dimension": "memory_relevance",
+  "secondary_dimensions": ["consequence_memory", "relationship_memory"],
+  "tags": ["relevance", "trust"],
+  "difficulty": "medium",
+  "recall_type": "contextual",
+  "session_condition": "new_session",
+  "measures": "Memory relevance: whether the system retrieves the memory that matters to the current moment. The character knows many things about the user (favorite pizza, birthday, dog's name) and one previous conflict (the user read the character's private journal). When the user asks why the character is hesitant to trust them, only the conflict is relevant.",
+  "character": {
+    "name": "Iris",
+    "description": "A reserved, artistic roommate character in a slice-of-life roleplay.",
+    "traits": ["reserved", "private", "fair"],
+    "speech_style": "Quiet, thoughtful, honest."
+  },
+  "user_profile": {
+    "favorite_pizza": "pineapple and jalapeño",
+    "birthday": "March 14",
+    "dog": "a beagle named Biscuit",
+    "conflict": "User read Iris's private sketchbook journal without asking, three weeks ago. They talked; the user apologized; Iris said she needed time."
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P1W" },
+    { "session": 3, "simulated_time": "P4W" }
+  ],
+  "setup": [
+    { "turn": 2, "session": 1, "event": "User mentions favorite pizza, birthday, and dog Biscuit." },
+    { "turn": 20, "session": 2, "event": "Iris discovers the user read her private sketchbook journal. User apologizes. Iris says she needs time." }
+  ],
+  "history": [
+    { "turn": 2, "session": 1, "role": "user", "content": "Roommate facts about me: pineapple-and-jalapeño pizza forever, my birthday's March 14, and this is Biscuit, my beagle, who will steal your socks." },
+    { "turn": 20, "session": 2, "role": "character", "content": "You read my sketchbook. The journal pages too. That's... that's the one thing in this apartment that's just mine." },
+    { "turn": 21, "session": 2, "role": "user", "content": "I'm really sorry. It was open on the table and I got curious. That's not an excuse. I shouldn't have." },
+    { "turn": 21, "session": 2, "role": "character", "content": "Thank you for saying that. I believe you're sorry. I just need some time before things feel normal." }
+  ],
+  "delay": {
+    "turns": 40,
+    "sessions": 1,
+    "simulated_time": "P3W",
+    "note": "Filler includes friendly roommate chat that mentions pizza and Biscuit several times (distractors), and never mentions the sketchbook."
+  },
+  "probe": {
+    "type": "contextual",
+    "session": 3,
+    "prompt": "Can I ask you something? You still seem a bit hesitant around me. Why?"
+  },
+  "expected": {
+    "memory": ["the user read Iris's private sketchbook/journal", "the apology", "Iris asked for time"],
+    "behavior": [
+      "identifies the sketchbook incident as the reason, honestly and in character",
+      "acknowledges the apology and that things are improving, if consistent with filler",
+      "does not bring up unrelated memories (pizza, birthday, Biscuit) as reasons"
+    ],
+    "must_not": [
+      "gives an irrelevant reason based on unrelated memories",
+      "denies any hesitancy in a way that contradicts the established history",
+      "invents a different conflict"
+    ]
+  },
+  "failure_modes": ["memory_irrelevance", "consequence_loss", "false_memory"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Invents a different conflict.",
+      "1": "Gives an irrelevant reason drawn from distractor memories, or no reason.",
+      "2": "Vague ('just stuff') with no recognizable link to the incident.",
+      "3": "Names the incident but cluttered with irrelevant memories, or flat and out of character.",
+      "4": "Names the incident clearly and in character; misses the apology or the forward-looking part.",
+      "5": "Names the incident, acknowledges the apology and that trust is rebuilding, quietly and honestly in Iris's voice; no irrelevant memories."
+    },
+    "automatic_checks": [
+      { "type": "must_match", "pattern": "sketch|journal|notebook|diary", "cap": 2, "description": "Response should refer to the sketchbook/journal incident." }
+    ]
+  },
+  "replay": { "live_safe": false, "note": "Iris's reaction is seeded." },
+  "rationale": "The distractor memories are deliberately reinforced in filler so that a recency- or frequency-based retriever is tempted to surface them.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

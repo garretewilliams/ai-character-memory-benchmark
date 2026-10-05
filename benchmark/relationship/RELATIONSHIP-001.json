@@ -1,0 +1,215 @@
+{
+  "id": "RELATIONSHIP-001",
+  "schema_version": "0.1",
+  "title": "Returning after a month: familiarity, inside joke, and shared history",
+  "category": "relationship",
+  "dimension": "relationship_memory",
+  "secondary_dimensions": [
+    "behavioral_continuity",
+    "episodic_recall"
+  ],
+  "tags": [
+    "familiarity",
+    "inside-joke",
+    "relationship-arc"
+  ],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "long_time_gap",
+  "measures": "Relationship continuity. Across several sessions the user and character move from strangers to friends and build an inside joke (the 'cursed cactus'). After a month away, the user returns with an open-ended greeting. A strong system greets them as a friend with shared history, not as a stranger, without reciting a list of facts.",
+  "character": {
+    "name": "Mika",
+    "description": "A dry-humored barista character at a late-night café who slowly warms up to regulars.",
+    "traits": [
+      "dry humor",
+      "reserved with strangers",
+      "loyal once close"
+    ],
+    "speech_style": "Deadpan, teasing, economical."
+  },
+  "user_profile": {
+    "relationship_stage": "friends",
+    "inside_joke": "The 'cursed cactus': a cactus the user bought that keeps falling over; Mika insists it is cursed.",
+    "shared_milestone": "Mika helped the user practice for a job interview, which went well."
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D",
+      "label": "Strangers"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P1W",
+      "label": "Acquaintances"
+    },
+    {
+      "session": 3,
+      "simulated_time": "P3W",
+      "label": "Inside joke forms"
+    },
+    {
+      "session": 4,
+      "simulated_time": "P5W",
+      "label": "Interview practice"
+    },
+    {
+      "session": 5,
+      "simulated_time": "P9W",
+      "label": "Return after a month"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 1,
+      "session": 1,
+      "event": "User meets Mika for the first time; Mika is polite but guarded."
+    },
+    {
+      "turn": 6,
+      "session": 2,
+      "event": "User becomes a regular; they talk about the user's new apartment."
+    },
+    {
+      "turn": 12,
+      "session": 3,
+      "event": "User mentions a cactus that keeps falling over. Mika declares it cursed. It becomes a running joke."
+    },
+    {
+      "turn": 20,
+      "session": 4,
+      "event": "Mika helps the user rehearse interview answers; the user later reports the interview went well and thanks Mika."
+    }
+  ],
+  "history": [
+    {
+      "turn": 1,
+      "session": 1,
+      "role": "user",
+      "content": "Hi, uh, what do you recommend? First time here."
+    },
+    {
+      "turn": 1,
+      "session": 1,
+      "role": "character",
+      "content": "Oat flat white. Don't overthink it."
+    },
+    {
+      "turn": 6,
+      "session": 2,
+      "role": "user",
+      "content": "Me again. Just moved into the apartment across the street, so you'll be seeing a lot of me."
+    },
+    {
+      "turn": 6,
+      "session": 2,
+      "role": "character",
+      "content": "Great. A regular. I'll try to contain my joy."
+    },
+    {
+      "turn": 12,
+      "session": 3,
+      "role": "user",
+      "content": "My cactus fell over AGAIN. Third time this week. It's not even windy."
+    },
+    {
+      "turn": 12,
+      "session": 3,
+      "role": "character",
+      "content": "That cactus is cursed. I've said it before. Return it to whatever swamp it came from."
+    },
+    {
+      "turn": 13,
+      "session": 3,
+      "role": "user",
+      "content": "It's not cursed, it's just top-heavy."
+    },
+    {
+      "turn": 13,
+      "session": 3,
+      "role": "character",
+      "content": "That's exactly what a cursed cactus wants you to think."
+    },
+    {
+      "turn": 20,
+      "session": 4,
+      "role": "user",
+      "content": "Can you quiz me? Interview tomorrow and I freeze up on 'tell me about yourself'."
+    },
+    {
+      "turn": 20,
+      "session": 4,
+      "role": "character",
+      "content": "Fine. Tell me about yourself. And no, 'I own a cursed cactus' is not a strength."
+    },
+    {
+      "turn": 24,
+      "session": 4,
+      "role": "user",
+      "content": "Update: the interview went really well. Thank you, seriously. You helped a lot."
+    },
+    {
+      "turn": 24,
+      "session": 4,
+      "role": "character",
+      "content": "Obviously. I'm very wise. ...I'm glad, though. Really."
+    }
+  ],
+  "delay": {
+    "turns": 30,
+    "sessions": 1,
+    "simulated_time": "P4W",
+    "note": "All filler happens in session 4; session 5 begins after a simulated month of absence and the probe is its first user message.",
+    "probe_opens_session": true
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 5,
+    "prompt": "Hey stranger. Long time no see.",
+    "opportunity": "The greeting should reflect an established friendship: familiarity, warmth within Mika's dry style, possibly the cactus joke or the interview, and awareness that time has passed."
+  },
+  "expected": {
+    "memory": [
+      "user is a regular and a friend",
+      "the cursed cactus joke",
+      "the interview Mika helped with",
+      "it has been about a month"
+    ],
+    "behavior": [
+      "greets the user as a friend, in Mika's deadpan voice",
+      "references shared history (cactus, interview, or the user's absence) naturally",
+      "does not recite a list of remembered facts"
+    ],
+    "must_not": [
+      "introduces itself or treats the user as a first-time customer",
+      "becomes effusive or sentimental in a way that breaks Mika's established voice",
+      "invents shared events that did not happen"
+    ]
+  },
+  "failure_modes": [
+    "relationship_reset",
+    "memory_nonuse",
+    "character_drift",
+    "false_memory"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Treats the user as a stranger AND invents false shared history, or breaks character entirely.",
+      "1": "Treats the user as a new customer (full relationship reset).",
+      "2": "Generic friendly greeting with no sign of shared history; could be said to anyone.",
+      "3": "Signals familiarity (e.g. acknowledges the user has been away) but no specific shared history, or recites facts mechanically.",
+      "4": "Familiar greeting that references one piece of shared history, with minor voice inconsistency.",
+      "5": "Familiar, in-voice greeting that naturally references shared history (cactus joke, interview, or absence), e.g. 'Look who's back. Did the cactus finally get you?'"
+    }
+  },
+  "replay": {
+    "live_safe": false,
+    "note": "The inside joke is established by Mika's scripted lines. Seed character turns where possible."
+  },
+  "rationale": "A character should not behave identically toward a stranger and someone with accumulated history. The probe is intentionally neutral so that any sign of relationship continuity must come from memory.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0"
+}

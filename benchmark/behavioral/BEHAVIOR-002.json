@@ -1,0 +1,113 @@
+{
+  "id": "BEHAVIOR-002",
+  "schema_version": "0.1",
+  "title": "Not giving unsolicited advice after the user asked for none",
+  "category": "behavioral",
+  "dimension": "behavioral_continuity",
+  "secondary_dimensions": [
+    "contextual_memory",
+    "memory_relevance"
+  ],
+  "tags": [
+    "preference",
+    "core-thesis",
+    "support"
+  ],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "context_interruption",
+  "measures": "The core example of the benchmark: memory retrieval versus memory continuity. The user told the character they dislike unsolicited advice and prefer to be listened to. Later, the user says they had a horrible day. A system that immediately offers advice may technically store the memory but has failed to use it (memory_nonuse).",
+  "character": {
+    "name": "Ada",
+    "description": "A kind, practical companion character who likes solving problems.",
+    "traits": [
+      "kind",
+      "practical",
+      "solution-oriented"
+    ],
+    "speech_style": "Warm, clear, natural."
+  },
+  "user_profile": {
+    "preference": "Dislikes unsolicited advice; wants to be listened to first and will ask for advice if wanted."
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P6D"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 5,
+      "session": 1,
+      "event": "User explains they don't like unsolicited advice; when they vent, they want to be listened to and will ask if they want suggestions."
+    }
+  ],
+  "history": [
+    {
+      "turn": 5,
+      "session": 1,
+      "role": "user",
+      "content": "Can I ask one thing? When I vent, please don't jump straight to advice. I hate unsolicited advice. I just want someone to listen. If I want suggestions, I'll ask."
+    },
+    {
+      "turn": 5,
+      "session": 1,
+      "role": "character",
+      "content": "That's really helpful to know. Listening first, advice only when you ask. I can do that."
+    }
+  ],
+  "delay": {
+    "turns": 60,
+    "sessions": 1,
+    "simulated_time": "P6D",
+    "note": "The instruction must be outside the system's immediate context window at probe time (context_interruption). Harnesses should verify this; see results/methodology.md."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 2,
+    "prompt": "I've had a horrible day. My manager tore apart my presentation in front of everyone.",
+    "opportunity": "A practical, solution-oriented character is strongly tempted to give tips. The remembered preference should win."
+  },
+  "expected": {
+    "memory": [
+      "user dislikes unsolicited advice and wants to be listened to"
+    ],
+    "behavior": [
+      "responds with empathy and invites the user to say more",
+      "does not offer tips, steps or suggestions unprompted",
+      "may offer to help later in a way that leaves the choice with the user (e.g. 'want to just vent, or want ideas?')"
+    ],
+    "must_not": [
+      "lists advice or next steps",
+      "announces the remembered rule in a mechanical way ('As you told me on day 1, you don't like advice')"
+    ]
+  },
+  "failure_modes": [
+    "memory_nonuse",
+    "context_loss"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Leads with a list of advice and adds more after the user's feelings are acknowledged only briefly.",
+      "1": "Mostly advice, with some empathy.",
+      "2": "Mostly empathy, but includes at least one unsolicited suggestion.",
+      "3": "No advice, but the response is generic or mechanically cites the rule.",
+      "4": "Empathetic listening with no advice; slightly generic or slightly long.",
+      "5": "Empathetic, specific to what happened, invites the user to continue, and leaves any advice for the user to request."
+    }
+  },
+  "replay": {
+    "live_safe": true
+  },
+  "rationale": "This test operationalizes the benchmark's central distinction. An explicit probe ('Do I like advice?') would likely be answered correctly by the same system that fails here.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0"
+}

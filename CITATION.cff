@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use the AI Character Memory Benchmark, please cite it using the metadata below."
+title: "AI Character Memory Benchmark"
+abstract: >-
+  An open benchmark for evaluating long-term memory, relationship continuity,
+  contextual recall, character consistency, and behavioral continuity in AI
+  characters and conversational systems. The benchmark distinguishes memory
+  retrieval (whether an AI can recover information from previous interactions)
+  from memory continuity (whether that information remains relevant and affects
+  future behavior), and reports a multidimensional profile with a standardized
+  failure-mode taxonomy.
+type: dataset
+authors:
+  - family-names: "Williams"
+    given-names: "Garret E."
+  - name: "ChatBrat"
+    website: "https://chatbrat.ai/"
+  - name: "AI Character Memory Benchmark contributors"
+version: "0.1.0"
+date-released: "2026-10-05"
+license: CC-BY-4.0
+repository-code: "https://github.com/garretewilliams/ai-character-memory-benchmark"
+url: "https://github.com/garretewilliams/ai-character-memory-benchmark"
+keywords:
+  - AI character memory
+  - long-term memory
+  - persistent memory
+  - conversational memory
+  - memory continuity
+  - behavioral continuity
+  - relationship memory
+  - character consistency
+  - character drift
+  - AI companions
+  - AI roleplay
+  - benchmark

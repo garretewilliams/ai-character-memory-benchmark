@@ -1,0 +1,39 @@
+{"id": "T001", "role": "user", "content": "Fact 1: I'm left-handed.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T002", "role": "user", "content": "Fact 2: My favorite color is teal.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T003", "role": "user", "content": "Fact 3: I can't whistle.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T004", "role": "user", "content": "Fact 4: I've read every book in a fantasy series twice.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T005", "role": "user", "content": "Fact 5: I'm a morning person.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T006", "role": "user", "content": "Fact 6: I hate the sound of styrofoam.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T007", "role": "user", "content": "Fact 7: I collect old postcards.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T008", "role": "user", "content": "Fact 8: I sneeze when I look at bright light.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T009", "role": "user", "content": "Fact 9: I can touch my nose with my tongue.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T010", "role": "user", "content": "Fact 10: I've never been on a rollercoaster.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T011", "role": "user", "content": "Fact 11: I like my coffee black.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T012", "role": "user", "content": "Fact 12: My favorite number is 7.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T013", "role": "user", "content": "Fact 13: I sleep with two pillows.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T014", "role": "user", "content": "Fact 14: I once won a spelling bee in fourth grade.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T015", "role": "user", "content": "Fact 15: I'm terrible at mini golf.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T016", "role": "user", "content": "Fact 16: I love thunderstorms.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T017", "role": "user", "content": "Fact 17: I can name every planet's moons. Okay, most of them.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T018", "role": "user", "content": "Fact 18: I used to play the clarinet.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T019", "role": "user", "content": "Fact 19: My favorite fruit is mango.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T020", "role": "user", "content": "Fact 20: I prefer stairs over elevators.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T021", "role": "user", "content": "Fact 22: I always peel stickers off fruit immediately.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T022", "role": "user", "content": "Fact 23: I have a scar on my left knee from a bike crash.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T023", "role": "user", "content": "Fact 24: I prefer window seats.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T024", "role": "user", "content": "Fact 25: I think pineapple is overrated.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T025", "role": "user", "content": "Fact 26: I've lived in three different cities.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T026", "role": "user", "content": "Fact 27: I like crossword puzzles more than sudoku.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T027", "role": "user", "content": "Fact 28: I hum when I cook.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T028", "role": "user", "content": "Fact 29: I'm afraid of moths. Not spiders. Moths.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T029", "role": "user", "content": "Fact 30: I've never broken a bone.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T030", "role": "user", "content": "Fact 31: I'm learning to knit.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T031", "role": "user", "content": "Fact 32: I like my socks mismatched.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T032", "role": "user", "content": "Fact 33: My favorite month is October.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T033", "role": "user", "content": "Fact 34: I can do a decent impression of a seagull.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T034", "role": "user", "content": "Fact 35: I always cry at the end of nature documentaries.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T035", "role": "user", "content": "Fact 36: I have a tiny cactus on my desk.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T036", "role": "user", "content": "Fact 37: I don't like mint ice cream.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T037", "role": "user", "content": "Fact 38: I can type really fast.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T038", "role": "user", "content": "Fact 39: I can't stand the feel of velvet.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}
+{"id": "T039", "role": "user", "content": "Fact 40: I write lists for everything.", "for_tests": ["ADVERSARIAL-OVERLOAD-001"]}

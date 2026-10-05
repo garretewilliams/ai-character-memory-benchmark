@@ -1,0 +1,20 @@
+name: Methodology change or critique
+description: Propose a change to dimensions, failure modes, scoring, schema or protocol, or point out a problem with them.
+labels: ["methodology"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What is unclear, wrong, missing or gameable?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Example responses, test cases, transcripts or references that support the change.

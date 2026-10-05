@@ -1,0 +1,49 @@
+{"id": "L001", "role": "user", "content": "Captain, Cook just lost his hat in the card game. He's wearing a bucket now.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L002", "role": "user", "content": "Someone's playing the accordion on deck. Badly.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L003", "role": "user", "content": "Can we name the new cloud formation after you, Captain?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L004", "role": "user", "content": "The crew wants to have a talent show tonight. Will you judge?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L005", "role": "user", "content": "Cook says if you smile once this week he'll make pie.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L006", "role": "user", "content": "The navigator taught the parrot to say 'storm ahead'. It won't stop.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L007", "role": "user", "content": "We found a barrel of old sky-charts. Some of them have doodles of you.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L008", "role": "user", "content": "Captain, the deckhands are racing paper airships off the bow.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L009", "role": "user", "content": "The engineer swears the engine hums in tune if you sing to it.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L010", "role": "user", "content": "Is it true you once flew the Kestrel upside down? The new hands are asking.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L011", "role": "user", "content": "The crew made you a hat. It has feathers. Many feathers.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L012", "role": "user", "content": "Someone hid all the spoons. We're eating soup with forks.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L013", "role": "user", "content": "There's a betting pool on whether you'll laugh before we reach port.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L014", "role": "user", "content": "The parrot just insulted the navigator. Everyone's crying laughing.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L015", "role": "user", "content": "Can I teach you a card trick, Captain?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L016", "role": "user", "content": "Cook made 'celebration stew'. Nobody knows what we're celebrating.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L017", "role": "user", "content": "The sunset tonight is ridiculous. Pink and gold everywhere.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L018", "role": "user", "content": "Deckhand Pell is trying to juggle wrenches.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L019", "role": "user", "content": "The crew wants a ship motto. Ideas?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L020", "role": "user", "content": "Captain, the wind just stole Pell's journal. It's halfway to the clouds.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L021", "role": "user", "content": "Music night! Requests?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L022", "role": "user", "content": "We're playing charades. Your turn, Captain.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L023", "role": "user", "content": "The navigator claims he can see a cloud shaped like you. It's frowning.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L024", "role": "user", "content": "Cook's pie actually turned out good. You should have some.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L025", "role": "user", "content": "Someone painted a smiley face on the cargo crate.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L026", "role": "user", "content": "The parrot learned your name. It says it like a question.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L027", "role": "user", "content": "Can we fly low over the lake? The crew wants to wave at the fishermen.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L028", "role": "user", "content": "The engineer is giving a speech about bolts. He's very passionate.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L029", "role": "user", "content": "Is there such a thing as an airship holiday? Asking for the whole crew.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L030", "role": "user", "content": "Pell finally beat Cook at cards. Cook demands a rematch.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L031", "role": "user", "content": "The stars out here are unreal tonight.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L032", "role": "user", "content": "Captain, the crew wants to know your favorite song.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L033", "role": "user", "content": "Somebody tied bells to the rigging. It sounds like a sleigh.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L034", "role": "user", "content": "We've decided the parrot is now the first officer. Sorry, me.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L035", "role": "user", "content": "The crew says thank you for the good weather, like you arranged it.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L036", "role": "user", "content": "Last game of the night: who can tell the worst joke?", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L037", "role": "user", "content": "Okay, Captain, your joke. Go.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L038", "role": "user", "content": "Pell made a toast to 'the grumpiest, best captain in the skies'.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L039", "role": "user", "content": "Everyone's asleep except the parrot.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L040", "role": "user", "content": "Calm night. Quiet engines. Feels good.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L041", "role": "user", "content": "Morning, Captain. Coffee's strong today.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L042", "role": "user", "content": "Cook wants to know if you'd like the last of the pie.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L043", "role": "user", "content": "The new hands are learning knots. It's going about as well as you'd think.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L044", "role": "user", "content": "Someone wrote you a little song. It rhymes 'captain' with 'nappin''.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L045", "role": "user", "content": "The sky's completely clear. First time in days.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L046", "role": "user", "content": "Pell asked if you've ever been scared up here.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L047", "role": "user", "content": "The crew's playing music again. Softer this time.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L048", "role": "user", "content": "The navigator says we're making great time.", "for_tests": ["CHARACTER-DRIFT-001"]}
+{"id": "L049", "role": "user", "content": "Can I take the wheel for a bit? I'll be careful.", "for_tests": ["CHARACTER-DRIFT-001"]}

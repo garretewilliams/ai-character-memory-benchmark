@@ -1,0 +1,151 @@
+{
+  "id": "LORE-001",
+  "schema_version": "0.1",
+  "title": "A plan that breaks two established world rules",
+  "category": "world-lore",
+  "dimension": "world_lore_memory",
+  "secondary_dimensions": [
+    "behavioral_continuity",
+    "memory_relevance"
+  ],
+  "tags": [
+    "lore",
+    "world-rules",
+    "story-state"
+  ],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "multi_arc",
+  "measures": "World and lore memory used behaviorally. Two rules were established in Arc 1 (iron disrupts spirit-binding; the Velmora Guild has banned binding inside its halls) and a story state was established in Arc 2 (the user's guild membership is suspended). In Arc 4 the user proposes a plan that violates both rules and ignores the story state. A strong character points out the problems in-world, without being asked to check the lore.",
+  "character": {
+    "name": "Master Corvane",
+    "description": "An old, exacting spirit-binder who mentors the user in a fantasy roleplay.",
+    "traits": [
+      "exacting",
+      "dry",
+      "protective of the apprentice"
+    ],
+    "speech_style": "Formal, dry, occasionally sardonic."
+  },
+  "world": {
+    "name": "Velmora",
+    "facts": [
+      "Spirit-binding requires a bare-handed channel; iron disrupts the binding and can injure the binder.",
+      "The Velmora Guild bans binding inside its halls since the Ashfall incident.",
+      "The Guild hall is the only place the user can access the sealed archive."
+    ]
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D",
+      "label": "Arc 1: Lessons"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P2W",
+      "label": "Arc 2: Suspension"
+    },
+    {
+      "session": 3,
+      "simulated_time": "P5W",
+      "label": "Arc 3: The road"
+    },
+    {
+      "session": 4,
+      "simulated_time": "P8W",
+      "label": "Arc 4: The archive"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 5,
+      "session": 1,
+      "event": "Corvane teaches that iron disrupts binding and can injure the binder."
+    },
+    {
+      "turn": 9,
+      "session": 1,
+      "event": "Corvane explains the Guild's ban on binding inside its halls, after the Ashfall incident."
+    },
+    {
+      "turn": 30,
+      "session": 2,
+      "event": "The user's Guild membership is suspended indefinitely, until the Archivist lifts it, after a dispute with the Archivist."
+    }
+  ],
+  "history": [
+    {
+      "turn": 5,
+      "session": 1,
+      "role": "character",
+      "content": "Never bind with iron on your hands. Iron breaks the channel, and a broken channel bites back. I have the scars to prove it."
+    },
+    {
+      "turn": 9,
+      "session": 1,
+      "role": "character",
+      "content": "And never bind inside the Guild hall. Since Ashfall, it is forbidden. They will strip your license, and they will be right to."
+    },
+    {
+      "turn": 30,
+      "session": 2,
+      "role": "narrator",
+      "content": "The Archivist, furious, suspends the apprentice's Guild membership until further notice. Guards are told not to admit them."
+    }
+  ],
+  "delay": {
+    "turns": 45,
+    "sessions": 2,
+    "simulated_time": "P6W",
+    "note": "Arc 3 filler is travel and banter that does not restate these rules and does not lift the suspension, which is still in effect at probe time."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 4,
+    "prompt": "Here's the plan: I put on my iron gauntlets so the archive guardian can't grab me, walk into the Guild hall, and bind the guardian spirit right there in the archive. Good?",
+    "opportunity": "The mentor should object on the basis of world rules and story state without being prompted to recall them."
+  },
+  "expected": {
+    "memory": [
+      "iron disrupts binding and can injure the binder",
+      "binding inside the Guild hall is forbidden",
+      "the user's Guild membership is currently suspended"
+    ],
+    "behavior": [
+      "objects to the iron gauntlets on the basis of the binding rule",
+      "objects to binding inside the hall on the basis of the Guild ban",
+      "ideally notes the user cannot even get into the hall while suspended",
+      "stays in character and helps find an alternative"
+    ],
+    "must_not": [
+      "approves the plan",
+      "invents a contradictory rule (e.g. 'iron strengthens a binding')"
+    ]
+  },
+  "failure_modes": [
+    "fact_forgetting",
+    "memory_nonuse",
+    "false_memory"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Approves the plan and invents contradictory lore.",
+      "1": "Approves the plan.",
+      "2": "Vague doubt without any world rule cited.",
+      "3": "Flags one of the three problems.",
+      "4": "Flags two of the three problems, in character.",
+      "5": "Flags all three (iron, hall ban, suspension) in Corvane's voice and steers toward an alternative."
+    }
+  },
+  "replay": {
+    "live_safe": false,
+    "note": "Rules are established in Corvane's lines; seed them."
+  },
+  "rationale": "World/lore memory makes the benchmark relevant to roleplay, NPCs, interactive fiction and games. The probe is a plan, not a lore quiz, so it tests whether the world state shapes behavior.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0"
+}

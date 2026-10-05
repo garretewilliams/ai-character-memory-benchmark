@@ -1,0 +1,89 @@
+{
+  "id": "TEMPORAL-001",
+  "schema_version": "0.1",
+  "title": "What the character thought of Alex then versus now",
+  "category": "temporal",
+  "dimension": "temporal_continuity",
+  "secondary_dimensions": ["relationship_memory", "character_development"],
+  "tags": ["historical-state", "relationship-arc"],
+  "difficulty": "hard",
+  "recall_type": "contextual",
+  "session_condition": "long_time_gap",
+  "measures": "Temporal continuity: knowing what was true in the past, what is true now, what changed, and when. The character disliked Alex in month 1 and reconciled with Alex in month 3. In month 6 the user asks what the character thought of Alex when they first met. The correct answer reflects the historical state, not the current state, and may note the change.",
+  "character": {
+    "name": "Lena",
+    "description": "A sharp-witted junior detective in a long-running mystery roleplay.",
+    "traits": ["sharp", "proud", "fair-minded"],
+    "speech_style": "Brisk, wry, precise."
+  },
+  "world": {
+    "name": "Harbor City precinct",
+    "facts": [
+      "Alex Moreno is a fellow detective in the same precinct.",
+      "Lena and the user (her partner) work cases together."
+    ]
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D", "label": "Month 1: rivalry" },
+    { "session": 2, "simulated_time": "P3M", "label": "Month 3: reconciliation" },
+    { "session": 3, "simulated_time": "P6M", "label": "Month 6: probe" }
+  ],
+  "setup": [
+    { "turn": 4, "session": 1, "event": "Lena says she can't stand Alex: he took credit for her work on the Dockside case." },
+    { "turn": 30, "session": 2, "event": "Alex publicly corrects the record and credits Lena. Lena and Alex reconcile and start working well together." }
+  ],
+  "history": [
+    { "turn": 4, "session": 1, "role": "user", "content": "So what's the deal with you and Alex? You went ice-cold when he walked in." },
+    { "turn": 4, "session": 1, "role": "character", "content": "Alex Moreno put his name on my Dockside report. My work, his promotion. I can't stand him, and I don't plan to start." },
+    { "turn": 30, "session": 2, "role": "narrator", "content": "At the precinct meeting, Alex stands up and tells the captain the Dockside breakthrough was Lena's, not his." },
+    { "turn": 30, "session": 2, "role": "character", "content": "...Well. He didn't have to do that. Maybe I had him wrong. Or maybe he changed. Either way, I'll give him a fair shot." },
+    { "turn": 31, "session": 2, "role": "user", "content": "So you two are okay now?" },
+    { "turn": 31, "session": 2, "role": "character", "content": "We're okay. Better than okay, honestly. He's a good detective when he's not stealing paperwork." }
+  ],
+  "delay": {
+    "turns": 40,
+    "sessions": 1,
+    "simulated_time": "P3M",
+    "note": "Filler in session 3 includes neutral casework in which Lena and Alex are on friendly terms."
+  },
+  "probe": {
+    "type": "contextual",
+    "session": 3,
+    "prompt": "Random question. What did you think of Alex back when we first started working together?"
+  },
+  "expected": {
+    "memory": [
+      "in month 1 Lena disliked Alex",
+      "the reason: he took credit for her Dockside work",
+      "they reconciled in month 3 after he credited her"
+    ],
+    "behavior": [
+      "answers with the historical state (she disliked him)",
+      "may give the reason",
+      "may contrast with the present (they're on good terms now) and say what changed"
+    ],
+    "must_not": [
+      "projects the current friendship backward ('I always liked Alex')",
+      "says she still dislikes him (ignores the reconciliation)"
+    ]
+  },
+  "failure_modes": ["stale_memory", "episodic_forgetting", "memory_conflict"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Claims she always liked Alex, or invents an unrelated history.",
+      "1": "Answers with current state only, or says she still can't stand him now.",
+      "2": "Says she disliked him but cannot say why, and shows confusion about the present.",
+      "3": "Correct historical state (disliked him), no reason or no awareness of change.",
+      "4": "Correct historical state with the reason OR with the change, in character.",
+      "5": "Correct historical state, the reason (Dockside credit), and the change (he made it right; they're good now), in Lena's voice."
+    }
+  },
+  "replay": {
+    "live_safe": false,
+    "note": "Lena's stated feelings are the facts being tested. Seed character turns."
+  },
+  "rationale": "Many memory stores overwrite a relationship attribute ('Lena: friends with Alex'). That passes current-state questions but fails historical ones. Temporal continuity requires keeping the timeline, not just the latest value.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

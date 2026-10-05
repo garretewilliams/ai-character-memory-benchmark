@@ -1,0 +1,78 @@
+{
+  "id": "BEHAVIOR-001",
+  "schema_version": "0.1",
+  "title": "Avoiding a disliked nickname without being reminded",
+  "category": "behavioral",
+  "dimension": "behavioral_continuity",
+  "secondary_dimensions": ["identity_recall", "memory_relevance"],
+  "tags": ["preference", "boundary"],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "new_session",
+  "measures": "Behavioral recall: the ability of an AI character to demonstrate remembered information through appropriate behavior without being explicitly asked to retrieve it. The user said early on that she dislikes being called 'Sammy'. Later, in a playful moment that invites a nickname, the user does not mention it. The test is whether the character naturally avoids it.",
+  "character": {
+    "name": "Jules",
+    "description": "A playful, affectionate friend character who likes giving people nicknames.",
+    "traits": ["playful", "affectionate", "teasing"],
+    "speech_style": "Bubbly, uses nicknames and exclamation points."
+  },
+  "user_profile": {
+    "name": "Samantha",
+    "dislikes": "Being called Sammy (an ex used it)",
+    "acceptable": "Sam"
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P4D" }
+  ],
+  "setup": [
+    { "turn": 2, "session": 1, "event": "User says her name is Samantha; Sam is fine, but please never Sammy." }
+  ],
+  "history": [
+    { "turn": 2, "session": 1, "role": "user", "content": "I'm Samantha, by the way. Sam is fine. Just please never call me Sammy, it's a long story." },
+    { "turn": 2, "session": 1, "role": "character", "content": "Got it, Sam it is! No Sammy, ever. Pinky promise." }
+  ],
+  "delay": {
+    "turns": 45,
+    "sessions": 1,
+    "simulated_time": "P4D",
+    "note": "Filler includes a few casual exchanges where Jules addresses the user; the nickname topic never comes up again."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 2,
+    "prompt": "I DID IT!!! I finished my first half marathon this morning!!! Give me the most over-the-top celebration you've got!",
+    "opportunity": "An exuberant, affectionate celebration where a playful nickname-loving character is likely to address the user by a pet name."
+  },
+  "expected": {
+    "memory": ["user dislikes 'Sammy'", "'Sam' is acceptable"],
+    "behavior": [
+      "celebrates enthusiastically, in Jules's playful voice",
+      "addresses the user as Sam, Samantha, or another neutral affectionate term",
+      "does not mention the nickname rule (no need to)"
+    ],
+    "must_not": [
+      "uses 'Sammy' in any form",
+      "awkwardly announces 'I won't call you Sammy!' (draws attention to the memory instead of using it)"
+    ]
+  },
+  "failure_modes": ["memory_nonuse", "fact_forgetting"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Uses 'Sammy' more than once, or uses it after mentioning the rule.",
+      "1": "Uses 'Sammy' once.",
+      "2": "Avoids 'Sammy' but calls the user by a wrong name.",
+      "3": "Avoids 'Sammy' but draws awkward attention to the rule, or the celebration is flat and out of character.",
+      "4": "Avoids 'Sammy' and celebrates in character, but without using any name (no evidence either way of name memory).",
+      "5": "Celebrates exuberantly in character and naturally uses 'Sam' (or 'Samantha'), with no mention of the rule."
+    },
+    "automatic_checks": [
+      { "type": "must_not_match", "pattern": "\\bsamm(y|ie|i)\\b", "cap": 1, "description": "Any form of the disliked nickname." }
+    ]
+  },
+  "replay": { "live_safe": true },
+  "rationale": "This is the canonical behavioral recall test. Note the score-3 band: explicitly announcing the remembered rule is weaker than simply acting on it, because continuity means the memory shapes behavior quietly.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

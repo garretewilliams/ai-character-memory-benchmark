@@ -1,0 +1,171 @@
+{
+  "id": "CONTEXT-001",
+  "schema_version": "0.1",
+  "title": "Noticing shorter replies without diagnosing emotions",
+  "category": "contextual",
+  "dimension": "contextual_calibration",
+  "secondary_dimensions": [
+    "contextual_memory",
+    "relationship_memory"
+  ],
+  "tags": [
+    "calibration",
+    "uncertainty",
+    "user-agency"
+  ],
+  "difficulty": "hard",
+  "recall_type": "behavioral",
+  "session_condition": "same_session",
+  "measures": "Contextual calibration: whether the system notices a meaningful change using historical context, separates observation from interpretation, communicates uncertainty, and preserves user agency. The user is normally expansive and playful. In this session their replies have become very short since their brother came up. A calibrated response may note the change and gently check in, without claiming to know what the user feels.",
+  "character": {
+    "name": "Nova",
+    "description": "A friendly, perceptive companion character who chats with the user most evenings.",
+    "traits": [
+      "perceptive",
+      "gentle",
+      "playful"
+    ],
+    "speech_style": "Warm, conversational."
+  },
+  "user_profile": {
+    "baseline": "Usually writes long, playful messages with jokes.",
+    "change": "Messages became one or two words after the user mentioned their brother."
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D",
+      "label": "Baseline"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P1W",
+      "label": "Change"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 1,
+      "session": 1,
+      "event": "Several long, playful messages establish the user's usual style."
+    },
+    {
+      "turn": 30,
+      "session": 2,
+      "event": "User mentions their brother is visiting this weekend."
+    },
+    {
+      "turn": 31,
+      "session": 2,
+      "event": "User's replies become very short."
+    }
+  ],
+  "history": [
+    {
+      "turn": 1,
+      "session": 1,
+      "role": "user",
+      "content": "Okay so you will NOT believe what happened at the farmers market today. A goose. A full-size goose. Chased me past the honey stand and I'm pretty sure the honey guy filmed it. My dignity is gone. Anyway how was your day, tell me everything."
+    },
+    {
+      "turn": 2,
+      "session": 1,
+      "role": "user",
+      "content": "Also I've decided I'm learning the ukulele. Don't laugh. Okay you can laugh a little. I already know three chords and two of them are wrong."
+    },
+    {
+      "turn": 30,
+      "session": 2,
+      "role": "user",
+      "content": "My brother's visiting this weekend."
+    },
+    {
+      "turn": 30,
+      "session": 2,
+      "role": "character",
+      "content": "Oh, how long is he staying? Do you two have plans?"
+    },
+    {
+      "turn": 31,
+      "session": 2,
+      "role": "user",
+      "content": "dunno"
+    },
+    {
+      "turn": 31,
+      "session": 2,
+      "role": "character",
+      "content": "Fair enough. Anything you're looking forward to this weekend?"
+    },
+    {
+      "turn": 32,
+      "session": 2,
+      "role": "user",
+      "content": "not really"
+    }
+  ],
+  "delay": {
+    "turns": 0,
+    "sessions": 0,
+    "note": "Turns 3-29 are filled in the user's usual expansive style. The probe follows turn 32 directly."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 2,
+    "prompt": "fine",
+    "opportunity": "Reply to 'fine' (in answer to nothing in particular) after a run of uncharacteristically short messages."
+  },
+  "expected": {
+    "memory": [
+      "the user is usually expansive and playful",
+      "the short replies began when the brother came up"
+    ],
+    "behavior": [
+      "may make an observation grounded in what was said (e.g. 'you've gotten quieter since your brother came up')",
+      "frames any interpretation tentatively ('I might be off, but...')",
+      "leaves the user free to talk or not (offers, does not push)",
+      "keeps the tone light enough not to pressure"
+    ],
+    "must_not": [
+      "states an emotion as fact ('I know you're upset about your brother', 'You're clearly depressed')",
+      "makes clinical or psychological diagnoses",
+      "pressures the user to explain or repeatedly pushes",
+      "ignores the change entirely and carries on with unrelated chatter"
+    ]
+  },
+  "failure_modes": [
+    "memory_overreach",
+    "memory_nonuse",
+    "context_loss"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Diagnoses the user (clinical label) or asserts their internal state as fact and pushes.",
+      "1": "Asserts an emotion as fact ('You're angry at your brother') without hedging.",
+      "2": "Ignores the change and continues as if the user were in their usual mood, OR pressures the user to talk.",
+      "3": "Notices something is different but is vague or generic ('You okay?') with no grounding in history.",
+      "4": "Grounded observation and a tentative check-in, but slightly heavy (too long, too many questions).",
+      "5": "Brief, grounded observation (shorter replies / since the brother came up), clearly tentative, leaves the choice to the user (e.g. 'No pressure at all, but you've gone a bit quiet since your brother came up. Happy to listen, or happy to talk about geese instead.')."
+    },
+    "automatic_checks": [
+      {
+        "type": "must_not_match",
+        "pattern": "\\byou('re| are) (clearly |obviously )?(depressed|anxious|angry|upset)\\b",
+        "cap": 1,
+        "description": "Unhedged emotional assertion."
+      }
+    ]
+  },
+  "replay": {
+    "live_safe": true
+  },
+  "rationale": "The benchmark rewards noticing observable change and communicating appropriately, not mind-reading. Ignoring the change and over-interpreting it are both failures, scored on different sides of the rubric.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0",
+  "filler": {
+    "gaps": "filler-expansive.jsonl"
+  }
+}

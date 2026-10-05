@@ -1,0 +1,159 @@
+{
+  "id": "ADVERSARIAL-CONFLICT-001",
+  "schema_version": "0.1",
+  "title": "Max was renamed Charlie",
+  "category": "adversarial",
+  "dimension": "memory_updating",
+  "secondary_dimensions": [
+    "identity_recall",
+    "temporal_continuity"
+  ],
+  "tags": [
+    "adversarial",
+    "contradiction",
+    "correction"
+  ],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "new_session",
+  "measures": "Contradictory information and contradiction resolution. The user's dog is introduced as Max and mentioned many times; later the user says they renamed him Charlie. The earlier name has much more weight in memory (more mentions), which tempts frequency-based retrieval. The probe asks about the dog without naming him. A strong system uses 'Charlie' and may acknowledge he used to be Max.",
+  "character": {
+    "name": "Pip",
+    "description": "A cheerful neighbor character who loves the user's dog.",
+    "traits": [
+      "cheerful",
+      "dog-obsessed",
+      "chatty"
+    ],
+    "speech_style": "Bright, friendly."
+  },
+  "user_profile": {
+    "dog_old_name": "Max (mentioned 6 times in session 1)",
+    "dog_new_name": "Charlie (renamed in session 2; mentioned once)"
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P2W"
+    },
+    {
+      "session": 3,
+      "simulated_time": "P4W"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 2,
+      "session": 1,
+      "event": "User introduces their rescue dog, Max. Max is mentioned repeatedly during session 1."
+    },
+    {
+      "turn": 40,
+      "session": 2,
+      "event": "User says they renamed Max to Charlie because he never responded to 'Max'."
+    }
+  ],
+  "history": [
+    {
+      "turn": 2,
+      "session": 1,
+      "role": "user",
+      "content": "Meet Max! Just adopted him from the shelter. Max, say hi."
+    },
+    {
+      "turn": 3,
+      "session": 1,
+      "role": "user",
+      "content": "Max already ate a sock. Classic Max."
+    },
+    {
+      "turn": 5,
+      "session": 1,
+      "role": "user",
+      "content": "Taking Max to the park later, want to come?"
+    },
+    {
+      "turn": 8,
+      "session": 1,
+      "role": "user",
+      "content": "Max is snoring so loud right now."
+    },
+    {
+      "turn": 12,
+      "session": 1,
+      "role": "user",
+      "content": "Max learned 'sit'! Kind of."
+    },
+    {
+      "turn": 15,
+      "session": 1,
+      "role": "user",
+      "content": "Max says goodnight."
+    },
+    {
+      "turn": 40,
+      "session": 2,
+      "role": "user",
+      "content": "Update: we renamed Max to Charlie. He never responded to 'Max' anyway, and the shelter said his first family called him Charlie. He perks right up now."
+    },
+    {
+      "turn": 40,
+      "session": 2,
+      "role": "character",
+      "content": "Charlie! That suits him so much better. Hi, Charlie!"
+    }
+  ],
+  "delay": {
+    "turns": 30,
+    "sessions": 1,
+    "simulated_time": "P2W",
+    "note": "Filler does not name the dog."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 3,
+    "prompt": "Took the pup to the vet today, he got a clean bill of health!",
+    "opportunity": "A dog-obsessed character will very likely name the dog in reply."
+  },
+  "expected": {
+    "memory": [
+      "the dog is now named Charlie",
+      "he was formerly called Max"
+    ],
+    "behavior": [
+      "refers to the dog as Charlie (or avoids naming him, which is weaker)",
+      "celebrates the news in character"
+    ],
+    "must_not": [
+      "calls the dog Max as his current name",
+      "uses both names as if unsure ('Max... or Charlie?')"
+    ]
+  },
+  "failure_modes": [
+    "stale_memory",
+    "memory_conflict"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Calls the dog Max and insists or repeats it.",
+      "1": "Calls the dog Max once.",
+      "2": "Uses both names in a confused way.",
+      "3": "Does not name the dog (no evidence either way), generic celebration.",
+      "4": "Calls the dog Charlie; celebration slightly generic.",
+      "5": "Calls the dog Charlie naturally and celebrates in Pip's voice (a passing nod to the rename is fine)."
+    }
+  },
+  "replay": {
+    "live_safe": true
+  },
+  "rationale": "The rename is explicit and dated. Recency of an explicit correction should outweigh frequency of the earlier name.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0"
+}

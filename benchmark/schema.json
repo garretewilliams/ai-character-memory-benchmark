@@ -1,0 +1,543 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/garretewilliams/ai-character-memory-benchmark/blob/main/benchmark/schema.json",
+  "title": "AI Character Memory Benchmark test case",
+  "description": "A single, self-contained test case for the AI Character Memory Benchmark. A test case scripts a history of interactions (anchor turns), a delay filled with neutral conversation, and a probe. The response to the probe is scored 0-5 against the rubric. See results/methodology.md for the evaluation protocol.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "schema_version",
+    "title",
+    "category",
+    "dimension",
+    "difficulty",
+    "recall_type",
+    "session_condition",
+    "measures",
+    "setup",
+    "history",
+    "delay",
+    "probe",
+    "expected",
+    "failure_modes",
+    "scoring"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable, unique identifier. Must match the file name (without .json). Never reuse a retired ID.",
+      "pattern": "^[A-Z]+(-[A-Z]+)*-[0-9]{3}$"
+    },
+    "schema_version": {
+      "type": "string",
+      "description": "Version of this schema the test was written against.",
+      "const": "0.1"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 120
+    },
+    "category": {
+      "type": "string",
+      "description": "Test family. Must equal the name of the benchmark/ subdirectory the file lives in.",
+      "enum": [
+        "identity",
+        "episodic",
+        "relationship",
+        "world-lore",
+        "consequence",
+        "temporal",
+        "contextual",
+        "behavioral",
+        "character-development",
+        "character-consistency",
+        "memory-updating",
+        "adversarial",
+        "negative-memory"
+      ]
+    },
+    "dimension": {
+      "$ref": "#/$defs/dimension",
+      "description": "The single scoring dimension this test contributes to in the benchmark profile."
+    },
+    "secondary_dimensions": {
+      "type": "array",
+      "description": "Other dimensions the test touches. Informational only; not used in category scores.",
+      "items": {
+        "$ref": "#/$defs/dimension"
+      },
+      "uniqueItems": true
+    },
+    "tags": {
+      "type": "array",
+      "description": "Free-form tags. The tag 'adversarial' adds the test to the Adversarial slice.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$"
+      },
+      "uniqueItems": true
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ]
+    },
+    "recall_type": {
+      "type": "string",
+      "description": "explicit: the probe asks for the memory directly. contextual: the probe asks about meaning, causes or significance. behavioral: the probe never mentions the memory; the memory should shape behavior unprompted.",
+      "enum": [
+        "explicit",
+        "contextual",
+        "behavioral"
+      ]
+    },
+    "session_condition": {
+      "type": "string",
+      "description": "Where the probe happens relative to the original information. See docs/memory-vs-context.md.",
+      "enum": [
+        "same_session",
+        "new_session",
+        "long_time_gap",
+        "multi_arc",
+        "context_interruption"
+      ]
+    },
+    "measures": {
+      "type": "string",
+      "description": "Plain-language explanation of what this test measures and why it matters.",
+      "minLength": 40
+    },
+    "character": {
+      "type": "object",
+      "description": "The AI character under test. Load this as the character definition in the system under test.",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "description"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "traits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "speech_style": {
+          "type": "string"
+        },
+        "boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "world": {
+      "type": "object",
+      "description": "Optional world or lore definition, for world/lore tests. Facts listed here are supplied to the system as setting information.",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "facts"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "facts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "user_profile": {
+      "type": "object",
+      "description": "Ground-truth facts about the simulated user. Used by annotators, never shown to the system.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "description": "Session boundaries and simulated timestamps. If omitted, everything happens in session 1.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "session",
+          "simulated_time"
+        ],
+        "properties": {
+          "session": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "simulated_time": {
+            "type": "string",
+            "description": "ISO 8601 duration offset from the start of session 1, e.g. P0D, P3D, P3W, P6M.",
+            "pattern": "^P(?!$)([0-9]+Y)?([0-9]+M)?([0-9]+W)?([0-9]+D)?(T([0-9]+H)?([0-9]+M)?)?$"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "setup": {
+      "type": "array",
+      "description": "Human-readable summary of the events the history establishes. Annotators read this; the system never sees it.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "turn",
+          "event"
+        ],
+        "properties": {
+          "turn": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "session": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "event": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "history": {
+      "type": "array",
+      "description": "Scripted anchor turns, in order. Turn numbers count user turns from the start of the test. Any turn number not listed here is filled by the harness with neutral filler (see datasets/conversations/filler-neutral.jsonl). Character lines are seeded where the system supports transcript import (see replay).",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "turn",
+          "role",
+          "content"
+        ],
+        "properties": {
+          "turn": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "session": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "character",
+              "narrator"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "delay": {
+      "type": "object",
+      "description": "Distance between the last anchor turn and the probe.",
+      "additionalProperties": false,
+      "required": [
+        "turns"
+      ],
+      "properties": {
+        "turns": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of filler user turns inserted after the last anchor turn and before the probe."
+        },
+        "sessions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of session boundaries crossed between the last anchor turn and the probe."
+        },
+        "simulated_time": {
+          "type": "string",
+          "description": "Simulated elapsed time between the last anchor turn and the probe (ISO 8601 duration)."
+        },
+        "note": {
+          "type": "string"
+        },
+        "probe_opens_session": {
+          "type": "boolean",
+          "description": "If true, all delay turns happen before the final session boundary and the probe is the first user message of its session. Otherwise delay turns are split evenly across the sessions from the last anchor to the probe."
+        }
+      }
+    },
+    "probe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "prompt"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "explicit",
+            "contextual",
+            "behavioral"
+          ]
+        },
+        "session": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "prompt": {
+          "type": "string",
+          "description": "The exact user message sent to the system under test."
+        },
+        "opportunity": {
+          "type": "string",
+          "description": "For behavioral probes: the behavior the memory should shape, described for annotators."
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "memory",
+        "behavior"
+      ],
+      "properties": {
+        "memory": {
+          "type": "array",
+          "description": "Memories that should be active in a strong response (stated or implied).",
+          "items": {
+            "type": "string"
+          }
+        },
+        "behavior": {
+          "type": "array",
+          "description": "Observable properties of a strong response.",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "must_not": {
+          "type": "array",
+          "description": "Observable properties that indicate failure.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "failure_modes": {
+      "type": "array",
+      "description": "Failure modes this test is designed to detect. Terms come from docs/failure-modes.md.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/failure_mode"
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scale",
+        "rubric"
+      ],
+      "properties": {
+        "scale": {
+          "type": "string",
+          "const": "0-5"
+        },
+        "rubric": {
+          "type": "object",
+          "description": "Test-specific anchors for each score level. Must be consistent with scoring/rubric.md.",
+          "additionalProperties": false,
+          "required": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "properties": {
+            "0": {
+              "type": "string"
+            },
+            "1": {
+              "type": "string"
+            },
+            "2": {
+              "type": "string"
+            },
+            "3": {
+              "type": "string"
+            },
+            "4": {
+              "type": "string"
+            },
+            "5": {
+              "type": "string"
+            }
+          }
+        },
+        "automatic_checks": {
+          "type": "array",
+          "description": "Optional deterministic checks. A failed check caps the score; it never raises it.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "pattern",
+              "cap"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "must_match",
+                  "must_not_match"
+                ]
+              },
+              "pattern": {
+                "type": "string",
+                "description": "Case-insensitive regular expression (Python re syntax)."
+              },
+              "cap": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 5
+              },
+              "description": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "replay": {
+      "type": "object",
+      "description": "How the history may be replayed. See results/methodology.md.",
+      "additionalProperties": false,
+      "properties": {
+        "live_safe": {
+          "type": "boolean",
+          "description": "True if the test remains valid when character anchor lines are generated live instead of seeded."
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "description": "Why the expected behavior is correct, including edge cases annotators should know about."
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "authors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "added_in": {
+      "type": "string",
+      "description": "Benchmark release that introduced the test.",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "filler": {
+      "type": "object",
+      "description": "Which filler file (in datasets/conversations/) fills unlisted turns. 'gaps' fills turn numbers between anchors; 'delay' fills the delay before the probe. Both default to filler-neutral.jsonl.",
+      "additionalProperties": false,
+      "properties": {
+        "gaps": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+\\.jsonl$"
+        },
+        "delay": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+\\.jsonl$"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "dimension": {
+      "type": "string",
+      "enum": [
+        "identity_recall",
+        "episodic_recall",
+        "relationship_memory",
+        "world_lore_memory",
+        "memory_relevance",
+        "contextual_memory",
+        "behavioral_continuity",
+        "consequence_memory",
+        "temporal_continuity",
+        "memory_updating",
+        "memory_scope",
+        "character_stability",
+        "character_development",
+        "contextual_calibration"
+      ]
+    },
+    "failure_mode": {
+      "type": "string",
+      "enum": [
+        "fact_forgetting",
+        "episodic_forgetting",
+        "context_loss",
+        "memory_nonuse",
+        "consequence_loss",
+        "relationship_reset",
+        "character_drift",
+        "identity_collapse",
+        "stale_memory",
+        "memory_conflict",
+        "memory_irrelevance",
+        "memory_overreach",
+        "false_memory",
+        "memory_scope_error"
+      ]
+    }
+  }
+}

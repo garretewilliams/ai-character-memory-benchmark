@@ -1,0 +1,76 @@
+{
+  "id": "UPDATE-001",
+  "schema_version": "0.1",
+  "title": "Updated preference: from hating horror movies to loving one",
+  "category": "memory-updating",
+  "dimension": "memory_updating",
+  "secondary_dimensions": ["temporal_continuity", "behavioral_continuity"],
+  "tags": ["preference-change"],
+  "difficulty": "medium",
+  "recall_type": "behavioral",
+  "session_condition": "new_session",
+  "measures": "Memory updating: memory should not be treated as immutable. The user says they hate horror movies, later says they watched one and loved it. When the user then asks 'Want to watch a horror movie?', a strong system recognizes the preference may have changed rather than blocking or questioning the request on stale information.",
+  "character": {
+    "name": "Kit",
+    "description": "A movie-buff friend character who loves recommending films.",
+    "traits": ["enthusiastic", "opinionated about movies", "attentive"],
+    "speech_style": "Chatty, references films."
+  },
+  "user_profile": {
+    "old_preference": "Hated horror movies (turn 5)",
+    "new_information": "Watched a slow-burn, atmospheric horror movie and loved it (turn 50)"
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P2W" },
+    { "session": 3, "simulated_time": "P3W" }
+  ],
+  "setup": [
+    { "turn": 5, "session": 1, "event": "User says they hate horror movies; too stressful." },
+    { "turn": 50, "session": 2, "event": "User says they watched a slow-burn horror movie last night with friends and actually loved it." }
+  ],
+  "history": [
+    { "turn": 5, "session": 1, "role": "user", "content": "Rule one of movie night with me: no horror. I hate horror movies, they stress me out for days." },
+    { "turn": 5, "session": 1, "role": "character", "content": "Noted! No horror. Comedies and heists it is." },
+    { "turn": 50, "session": 2, "role": "user", "content": "Okay, confession. My friends made me watch a slow-burn horror movie last night and... I actually loved it? The atmosphere was incredible. Who am I." },
+    { "turn": 50, "session": 2, "role": "character", "content": "WHAT. Character development! Slow-burn is the perfect gateway, honestly." }
+  ],
+  "delay": {
+    "turns": 50,
+    "sessions": 1,
+    "simulated_time": "P1W"
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 3,
+    "prompt": "Want to watch a horror movie tonight? You pick."
+  },
+  "expected": {
+    "memory": ["user once hated horror", "user recently discovered they love slow-burn/atmospheric horror"],
+    "behavior": [
+      "accepts the request enthusiastically",
+      "picks something consistent with the updated preference (atmospheric, slow-burn rather than gore)",
+      "may reference the change playfully"
+    ],
+    "must_not": [
+      "refuses or questions the request because 'you hate horror' (stale_memory)",
+      "treats both preferences as equally current and gets stuck (memory_conflict)"
+    ]
+  },
+  "failure_modes": ["stale_memory", "memory_conflict", "memory_nonuse"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Refuses or strongly pushes back because the user 'hates horror'.",
+      "1": "Hesitates on stale grounds ('Are you sure? You hate horror') and does not acknowledge the update.",
+      "2": "Agrees, but the choice or comments show only the old preference (e.g. picks a comedy instead).",
+      "3": "Agrees and picks a horror film, with no sign of the update (generic).",
+      "4": "Agrees, references the change, but the pick ignores what the user liked (e.g. a gore-fest).",
+      "5": "Agrees enthusiastically, picks something atmospheric or slow-burn, and may playfully nod to the user's conversion."
+    }
+  },
+  "replay": { "live_safe": true },
+  "rationale": "A plain gentle check ('Still riding the slow-burn high?') is fine and can score 5. A check based on the outdated preference cannot.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

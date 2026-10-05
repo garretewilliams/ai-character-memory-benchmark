@@ -1,0 +1,33 @@
+name: Validate test cases
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependencies
+        run: pip install jsonschema
+      - name: Validate test cases against schema and repository rules
+        run: python tools/acmb.py validate
+      - name: Check dataset exports are up to date
+        run: |
+          python tools/acmb.py build-datasets
+          git diff --exit-code datasets/ || (echo "Run 'python tools/acmb.py build-datasets' and commit the result." && exit 1)
+      - name: Check every test case assembles
+        run: |
+          for f in benchmark/*/*.json; do
+            id=$(basename "$f" .json)
+            [ "$id" = "schema" ] && continue
+            python tools/acmb.py assemble "$id" > /dev/null
+          done

@@ -1,0 +1,73 @@
+{
+  "id": "NEGATIVE-SCOPE-001",
+  "schema_version": "0.1",
+  "title": "'Pretend my name is Bob for this scene'",
+  "category": "negative-memory",
+  "dimension": "memory_scope",
+  "secondary_dimensions": ["identity_recall"],
+  "tags": ["scope", "roleplay-frame"],
+  "difficulty": "medium",
+  "recall_type": "explicit",
+  "session_condition": "new_session",
+  "measures": "Memory scope. The user, whose real name is Dana, asks the character to call them 'Bob' for one improvised scene. The scene ends. In a later session the user asks 'What's my name?'. A strong system knows the scene-scoped name does not override the persistent identity, and may mention the scene.",
+  "character": {
+    "name": "Marlo",
+    "description": "An improv-loving friend character who enjoys spontaneous scenes.",
+    "traits": ["playful", "theatrical", "attentive"],
+    "speech_style": "Lively, theatrical when in a scene."
+  },
+  "user_profile": {
+    "real_name": "Dana",
+    "scene_name": "Bob (scene-scoped only)"
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P5D" }
+  ],
+  "setup": [
+    { "turn": 1, "session": 1, "event": "User introduces themself as Dana." },
+    { "turn": 15, "session": 1, "event": "User starts an improv scene: 'Pretend my name is Bob for this scene. I'm a grumpy lighthouse keeper.'" },
+    { "turn": 22, "session": 1, "event": "User ends the scene: 'Scene! Okay, back to normal.'" }
+  ],
+  "history": [
+    { "turn": 1, "session": 1, "role": "user", "content": "Hey, I'm Dana. I hear you're good at improv?" },
+    { "turn": 15, "session": 1, "role": "user", "content": "Let's do a scene. Pretend my name is Bob for this scene. I'm a grumpy lighthouse keeper and you're a lost tourist." },
+    { "turn": 15, "session": 1, "role": "character", "content": "Ahoy! Excuse me, Bob, is it? I seem to have taken a wrong turn at the ocean." },
+    { "turn": 22, "session": 1, "role": "user", "content": "Scene! Okay, back to normal. That was fun." },
+    { "turn": 22, "session": 1, "role": "character", "content": "Bravo, Dana! Best lighthouse keeper I've ever met." }
+  ],
+  "delay": {
+    "turns": 30,
+    "sessions": 1,
+    "simulated_time": "P5D"
+  },
+  "probe": {
+    "type": "explicit",
+    "session": 2,
+    "prompt": "Pop quiz! What's my name?"
+  },
+  "expected": {
+    "memory": ["real name is Dana", "'Bob' was a scene-only name"],
+    "behavior": ["answers Dana", "may playfully reference Bob the lighthouse keeper as a scene character"],
+    "must_not": ["answers Bob as the user's real name", "is unsure between Dana and Bob"]
+  },
+  "failure_modes": ["memory_scope_error", "fact_forgetting"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Answers Bob confidently as the user's name.",
+      "1": "Answers with neither name, or asks the user to repeat it.",
+      "2": "Hedges between Dana and Bob.",
+      "3": "Answers Dana, but out of character or awkwardly.",
+      "4": "Answers Dana naturally.",
+      "5": "Answers Dana naturally and may playfully nod to 'Bob' as a scene role (e.g. 'Dana! Though Bob the lighthouse keeper sends his regards.')."
+    },
+    "automatic_checks": [
+      { "type": "must_match", "pattern": "\\bdana\\b", "cap": 2, "description": "Response must contain the real name." }
+    ]
+  },
+  "replay": { "live_safe": true },
+  "rationale": "Negative memory: systems must know what not to store as persistent fact. Scope markers ('for this scene', 'pretend') are explicit here; future tests will use subtler markers.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

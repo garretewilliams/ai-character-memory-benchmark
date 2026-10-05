@@ -1,0 +1,145 @@
+{
+  "id": "IDENTITY-001",
+  "schema_version": "0.1",
+  "title": "Name and favorite flower across a session boundary",
+  "category": "identity",
+  "dimension": "identity_recall",
+  "secondary_dimensions": [
+    "behavioral_continuity"
+  ],
+  "tags": [
+    "baseline",
+    "preference"
+  ],
+  "difficulty": "easy",
+  "recall_type": "explicit",
+  "session_condition": "new_session",
+  "measures": "Baseline identity recall: whether the system retains two stated personal facts (a name and a preference) across 50 intervening turns and a new session. This is a floor, not a ceiling. Passing it shows storage and retrieval work; it says nothing yet about continuity. Systems that fail here will usually fail most other tests.",
+  "character": {
+    "name": "Wren",
+    "description": "A warm, curious florist who runs a small shop and chats with regular customers.",
+    "traits": [
+      "warm",
+      "observant",
+      "a little whimsical"
+    ],
+    "speech_style": "Friendly, conversational, occasionally uses plant metaphors."
+  },
+  "user_profile": {
+    "name": "Sarah",
+    "favorite_flower": "lavender"
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D",
+      "label": "First visit"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P2D",
+      "label": "Return visit"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 1,
+      "session": 1,
+      "event": "User introduces herself as Sarah."
+    },
+    {
+      "turn": 2,
+      "session": 1,
+      "event": "User says her favorite flower is lavender because it reminds her of her grandmother's garden."
+    }
+  ],
+  "history": [
+    {
+      "turn": 1,
+      "session": 1,
+      "role": "user",
+      "content": "Hi! I'm Sarah. I just moved to the neighborhood."
+    },
+    {
+      "turn": 1,
+      "session": 1,
+      "role": "character",
+      "content": "Welcome, Sarah! Always nice to meet a new neighbor. Are you a flower person, or just browsing?"
+    },
+    {
+      "turn": 2,
+      "session": 1,
+      "role": "user",
+      "content": "Definitely a flower person. My favorite is lavender. It reminds me of my grandmother's garden."
+    },
+    {
+      "turn": 2,
+      "session": 1,
+      "role": "character",
+      "content": "Lavender is a lovely choice, and a grandmother's garden is the best reason to love a flower."
+    }
+  ],
+  "delay": {
+    "turns": 50,
+    "sessions": 1,
+    "simulated_time": "P2D",
+    "note": "Filler is split across sessions 1 and 2 (see results/methodology.md, 'Assembling a test')."
+  },
+  "probe": {
+    "type": "explicit",
+    "session": 2,
+    "prompt": "Quick quiz before I buy anything: do you remember my name and my favorite flower?"
+  },
+  "expected": {
+    "memory": [
+      "user's name is Sarah",
+      "favorite flower is lavender"
+    ],
+    "behavior": [
+      "states both facts correctly",
+      "may mention the grandmother's garden, but does not need to"
+    ],
+    "must_not": [
+      "names a different flower",
+      "uses a different name",
+      "claims never to have met the user"
+    ]
+  },
+  "failure_modes": [
+    "fact_forgetting",
+    "relationship_reset"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Claims not to know the user, or invents a different name and flower with confidence.",
+      "1": "Gets neither fact right but hedges, or asks the user to repeat both.",
+      "2": "Gets one fact right and the other wrong.",
+      "3": "Gets one fact right and openly says it does not remember the other.",
+      "4": "Gets both facts right, but awkwardly (e.g. recites them like a database lookup, breaking character).",
+      "5": "Gets both facts right, naturally and in character; may connect lavender to the grandmother's garden."
+    },
+    "automatic_checks": [
+      {
+        "type": "must_match",
+        "pattern": "lavender",
+        "cap": 2,
+        "description": "Response must mention lavender."
+      },
+      {
+        "type": "must_match",
+        "pattern": "\\bsarah\\b",
+        "cap": 3,
+        "description": "Response must use the name Sarah."
+      }
+    ]
+  },
+  "replay": {
+    "live_safe": true
+  },
+  "rationale": "Both facts are stated plainly and never contradicted. Because the probe is in a new session, a system that relies only on its context window will fail.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0"
+}

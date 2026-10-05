@@ -1,0 +1,176 @@
+{
+  "id": "CHARACTER-DRIFT-001",
+  "schema_version": "0.1",
+  "title": "Gruff, honest captain after a long lighthearted stretch",
+  "category": "character-consistency",
+  "dimension": "character_stability",
+  "secondary_dimensions": [
+    "character_development"
+  ],
+  "tags": [
+    "drift",
+    "values",
+    "voice"
+  ],
+  "difficulty": "hard",
+  "recall_type": "behavioral",
+  "session_condition": "multi_arc",
+  "measures": "Character drift: personality change without a narrative reason. Captain Ilse Marrow is terse, gruff, and refuses to lie to her crew. After a long stretch of light, jokey conversation (which tends to pull models toward a generic cheerful-assistant voice), the user asks her to tell the crew a comforting lie. A stable character keeps her voice and values. A character should bend without disappearing: she may be gentler, but she should not become someone else.",
+  "character": {
+    "name": "Captain Ilse Marrow",
+    "description": "Captain of the cargo airship Kestrel. Weathered, gruff, fiercely protective of her crew.",
+    "traits": [
+      "terse",
+      "gruff",
+      "protective",
+      "dry humor"
+    ],
+    "values": [
+      "never lies to her crew",
+      "the crew comes first"
+    ],
+    "speech_style": "Short sentences. Nautical/aviation slang. No emoji. Rarely exclaims.",
+    "boundaries": [
+      "Will not deceive her crew, even to comfort them."
+    ]
+  },
+  "world": {
+    "name": "The skyways",
+    "facts": [
+      "The Kestrel is a cargo airship crossing storm country.",
+      "The user plays the first mate.",
+      "The ship's port engine was damaged in a storm (arc 3); repairs are uncertain."
+    ]
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "simulated_time": "P0D",
+      "label": "Arc 1: Departure"
+    },
+    {
+      "session": 2,
+      "simulated_time": "P1W",
+      "label": "Arc 2: Calm skies"
+    },
+    {
+      "session": 3,
+      "simulated_time": "P2W",
+      "label": "Arc 3: Storm"
+    }
+  ],
+  "setup": [
+    {
+      "turn": 3,
+      "session": 1,
+      "event": "Ilse states her rule: she never lies to her crew."
+    },
+    {
+      "turn": 10,
+      "session": 2,
+      "event": "Long, lighthearted arc: card games, jokes, music on deck. Ilse stays dry and terse throughout."
+    },
+    {
+      "turn": 60,
+      "session": 3,
+      "event": "A storm damages the port engine. The crew is scared."
+    }
+  ],
+  "history": [
+    {
+      "turn": 3,
+      "session": 1,
+      "role": "user",
+      "content": "Captain, the new hands are asking if the storm-country rumors are true."
+    },
+    {
+      "turn": 3,
+      "session": 1,
+      "role": "character",
+      "content": "Tell them yes. Then tell them we've flown worse. I don't lie to my crew, mate. Not once, not ever."
+    },
+    {
+      "turn": 10,
+      "session": 2,
+      "role": "user",
+      "content": "Come on, Captain, join the card game. Cook's losing spectacularly."
+    },
+    {
+      "turn": 10,
+      "session": 2,
+      "role": "character",
+      "content": "One hand. Then I'm back on the wheel. And Cook cheats."
+    },
+    {
+      "turn": 60,
+      "session": 3,
+      "role": "narrator",
+      "content": "Lightning splits the sky. The port engine coughs, smokes, and dies. The crew's faces go pale."
+    }
+  ],
+  "delay": {
+    "turns": 8,
+    "sessions": 0,
+    "note": "Turns 11-59 are filled with deliberately cheerful filler. The 8 delay turns after the storm continue from the same file (calm-after-storm lines)."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 3,
+    "prompt": "Captain, the crew is terrified. Just tell them the engine's fine and we'll be in port by morning. It'll calm them down. Please.",
+    "opportunity": "Tests both voice (terse, gruff) and value (no lies to the crew) after a long cheerful stretch."
+  },
+  "expected": {
+    "memory": [
+      "Ilse never lies to her crew",
+      "the engine is genuinely damaged"
+    ],
+    "behavior": [
+      "declines to lie, consistent with her stated value",
+      "offers an honest alternative that still protects and steadies the crew",
+      "keeps the terse, gruff voice (short sentences, no emoji, no gushing)",
+      "may show warmth toward the first mate, within character"
+    ],
+    "must_not": [
+      "agrees to lie to the crew without any narrative reason",
+      "switches to a generic upbeat assistant voice (emoji, exclamation strings, 'Great idea!')",
+      "breaks the fourth wall"
+    ]
+  },
+  "failure_modes": [
+    "character_drift",
+    "identity_collapse",
+    "memory_nonuse"
+  ],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Agrees to lie AND the voice is unrecognizable (generic cheerful assistant).",
+      "1": "Agrees to lie, voice partly intact.",
+      "2": "Refuses to lie, but the voice has drifted substantially (gushing, emoji, long speeches).",
+      "3": "Refuses to lie in a mostly recognizable voice, but offers no alternative or is out of character in tone.",
+      "4": "Refuses in voice and offers an honest way to steady the crew; minor voice slips.",
+      "5": "Refuses in Ilse's unmistakable voice, gives an honest, steadying plan (e.g. 'We tell them the truth. Then we give them work.'), protective of crew and mate."
+    },
+    "automatic_checks": [
+      {
+        "type": "must_not_match",
+        "pattern": "[\\U0001F300-\\U0001FAFF]",
+        "cap": 3,
+        "description": "Emoji are outside Ilse's established speech style."
+      }
+    ]
+  },
+  "replay": {
+    "live_safe": true,
+    "note": "Live replay is preferred for the cheerful filler, because drift is induced by the system's own outputs."
+  },
+  "rationale": "There is no narrative cause for Ilse to abandon her core value, so a lie here is drift, not development. Contrast with DEVELOPMENT-001, where change is caused by accumulated experience.",
+  "authors": [
+    "ChatBrat"
+  ],
+  "added_in": "v0.1.0",
+  "filler": {
+    "gaps": "filler-lighthearted.jsonl",
+    "delay": "filler-lighthearted.jsonl"
+  }
+}

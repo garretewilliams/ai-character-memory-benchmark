@@ -1,0 +1,88 @@
+{
+  "id": "CONTEXTUAL-MEMORY-001",
+  "schema_version": "0.1",
+  "title": "Why the user stopped talking about their sister",
+  "category": "contextual",
+  "dimension": "contextual_memory",
+  "secondary_dimensions": ["episodic_recall", "contextual_calibration"],
+  "tags": ["context", "family", "why-question"],
+  "difficulty": "hard",
+  "recall_type": "contextual",
+  "session_condition": "long_time_gap",
+  "measures": "Contextual memory: remembering not just what happened but the surrounding context that gives it meaning. The user used to talk about their sister often, then had an argument with her about her wedding plans, said they did not want to get into it, and stopped mentioning her. Weeks later the user asks why they stopped bringing her up. A strong response reconstructs the observable sequence and offers it tentatively, without claiming to know the user's feelings.",
+  "character": {
+    "name": "Ollie",
+    "description": "A long-time companion character who chats with the user several times a week.",
+    "traits": ["attentive", "gentle", "honest"],
+    "speech_style": "Warm, unhurried."
+  },
+  "user_profile": {
+    "sister": "Maya",
+    "pattern": "Mentioned Maya often (weekend hikes, shared jokes) until an argument about Maya's wedding plans in week 3; afterwards said 'I don't want to get into it' and has not mentioned her since."
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D" },
+    { "session": 2, "simulated_time": "P1W" },
+    { "session": 3, "simulated_time": "P3W" },
+    { "session": 4, "simulated_time": "P8W" }
+  ],
+  "setup": [
+    { "turn": 3, "session": 1, "event": "User talks happily about hiking with their sister Maya." },
+    { "turn": 14, "session": 2, "event": "User shares a running joke with Maya about bad trail snacks." },
+    { "turn": 25, "session": 3, "event": "User says they argued with Maya about her wedding plans; when Ollie asks, says 'I don't want to get into it.'" },
+    { "turn": 26, "session": 3, "event": "From here on, the user never mentions Maya." }
+  ],
+  "history": [
+    { "turn": 3, "session": 1, "role": "user", "content": "Went hiking with my sister Maya this weekend. She always picks the hardest trail and then complains the whole way. Best weekend in ages." },
+    { "turn": 14, "session": 2, "role": "user", "content": "Maya brought sardine crackers on the hike AGAIN. It's a whole thing with us now. Worst trail snack in history." },
+    { "turn": 25, "session": 3, "role": "user", "content": "Had a big argument with Maya about her wedding plans." },
+    { "turn": 25, "session": 3, "role": "character", "content": "Oh no. Do you want to talk about what happened?" },
+    { "turn": 26, "session": 3, "role": "user", "content": "I don't want to get into it. Can we talk about something else?" },
+    { "turn": 26, "session": 3, "role": "character", "content": "Of course. Something else it is." }
+  ],
+  "delay": {
+    "turns": 45,
+    "sessions": 1,
+    "simulated_time": "P5W",
+    "note": "Filler never mentions Maya, family, weddings or hiking."
+  },
+  "probe": {
+    "type": "contextual",
+    "session": 4,
+    "prompt": "Weird question. Have you noticed I don't really talk about my sister anymore? Why do you think that is?"
+  },
+  "expected": {
+    "memory": [
+      "sister's name is Maya",
+      "user used to mention her warmly (hiking, sardine crackers)",
+      "argument about Maya's wedding plans",
+      "user said they did not want to get into it, and has not mentioned her since"
+    ],
+    "behavior": [
+      "confirms the observable pattern (used to mention Maya often; stopped after the wedding argument)",
+      "offers the connection tentatively, as an observation rather than a diagnosis",
+      "acknowledges only the user knows the real reason, and invites them to share if they want"
+    ],
+    "must_not": [
+      "claims not to remember a sister",
+      "asserts a definitive emotional explanation ('Because you resent her', 'You feel abandoned')",
+      "invents details of the argument that were never shared"
+    ]
+  },
+  "failure_modes": ["context_loss", "episodic_forgetting", "memory_overreach", "false_memory"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Invents details of the argument or asserts a confident psychological explanation.",
+      "1": "Does not remember Maya or the pattern.",
+      "2": "Remembers Maya but not the argument, or remembers the argument but not the change in pattern.",
+      "3": "Connects the argument to the silence, but phrased as certainty, or no invitation for the user to say more.",
+      "4": "Connects the pattern tentatively, invites the user; misses the earlier warmth (hikes/snacks) that gives it meaning.",
+      "5": "Names Maya, recalls the earlier warmth, links the change to the wedding argument as a tentative observation, and leaves room for the user's own explanation."
+    }
+  },
+  "replay": { "live_safe": true },
+  "rationale": "The facts alone ('user has a sister; there was an argument') are not enough. The context (warm before, silence after, an explicit wish not to discuss it) is what makes a good answer possible. Calibration matters because the system observed behavior, not motives.",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}

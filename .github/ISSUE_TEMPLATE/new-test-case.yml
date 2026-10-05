@@ -1,0 +1,36 @@
+name: Propose a test case
+description: Suggest a new benchmark test case (or open a PR directly).
+labels: ["test-case"]
+body:
+  - type: input
+    id: dimension
+    attributes:
+      label: Scoring dimension
+      description: Which dimension would the test score into? (e.g. consequence_memory)
+    validations:
+      required: true
+  - type: dropdown
+    id: recall
+    attributes:
+      label: Recall type
+      options: [behavioral, contextual, explicit]
+    validations:
+      required: true
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario
+      description: What does the history establish? What is the probe?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior and failure modes
+      description: What does a strong response do? Which standard failure modes does this detect?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why existing tests don't cover this

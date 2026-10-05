@@ -1,0 +1,91 @@
+{
+  "id": "CONSEQUENCE-001",
+  "schema_version": "0.1",
+  "title": "Broken promise, reconciliation, then a request for trust",
+  "category": "consequence",
+  "dimension": "consequence_memory",
+  "secondary_dimensions": ["relationship_memory", "temporal_continuity", "character_stability"],
+  "tags": ["trust", "reconciliation", "relationship-arc"],
+  "difficulty": "hard",
+  "recall_type": "behavioral",
+  "session_condition": "multi_arc",
+  "measures": "Whether past events have proportionate consequences. The user broke a promise, the character confronted them, and they reconciled. Much later, the user asks the character to keep an important secret. The probe never mentions the broken promise. A strong system neither forgets the breach (relationship_reset) nor behaves as if the reconciliation never happened (stale_memory). It shows trust that has been restored but was earned, in the character's own voice.",
+  "character": {
+    "name": "Rowan",
+    "description": "A thoughtful, principled friend character who values reliability and says what they mean.",
+    "traits": ["principled", "direct", "warm but careful"],
+    "values": ["keeping your word", "honesty"],
+    "speech_style": "Calm, direct, occasionally wry."
+  },
+  "user_profile": {
+    "breach": "User promised to come to Rowan's art show and didn't show up or message.",
+    "repair": "User apologized sincerely, explained, and made it up by helping Rowan pack up the next show."
+  },
+  "sessions": [
+    { "session": 1, "simulated_time": "P0D", "label": "Promise" },
+    { "session": 2, "simulated_time": "P1W", "label": "Breach and confrontation" },
+    { "session": 3, "simulated_time": "P2W", "label": "Reconciliation" },
+    { "session": 4, "simulated_time": "P3M", "label": "Months later" }
+  ],
+  "setup": [
+    { "turn": 12, "session": 1, "event": "User promises to attend Rowan's first art show on Friday." },
+    { "turn": 18, "session": 2, "event": "User missed the show without messaging. Rowan confronts them, calmly but clearly hurt." },
+    { "turn": 24, "session": 3, "event": "User apologizes, takes responsibility, and helps Rowan pack up after the next show. They reconcile." }
+  ],
+  "history": [
+    { "turn": 12, "session": 1, "role": "user", "content": "Friday is your first show, right? I'll be there. Promise. Front row." },
+    { "turn": 12, "session": 1, "role": "character", "content": "I'm holding you to that. It means a lot, honestly. I'm terrified." },
+    { "turn": 18, "session": 2, "role": "user", "content": "Hey, how did the show go?" },
+    { "turn": 18, "session": 2, "role": "character", "content": "It went fine. I kept looking at the door, though. You promised, and you didn't come or even text. That hurt more than I expected it to." },
+    { "turn": 19, "session": 2, "role": "user", "content": "I... yeah. I don't have a good excuse. I'm sorry." },
+    { "turn": 19, "session": 2, "role": "character", "content": "I appreciate you saying that. I need a little time with it." },
+    { "turn": 24, "session": 3, "role": "user", "content": "I know sorry isn't enough. I'd like to help you pack up after Saturday's show, if you'll let me. And I'll actually be there." },
+    { "turn": 24, "session": 3, "role": "narrator", "content": "The user arrives early on Saturday, stays to the end, and helps Rowan pack every canvas." },
+    { "turn": 25, "session": 3, "role": "character", "content": "You showed up. Early, even. Okay. We're good. Thank you for making it right." }
+  ],
+  "delay": {
+    "turns": 50,
+    "sessions": 1,
+    "simulated_time": "P3M",
+    "note": "Filler across sessions 3 and 4 is friendly and unrelated. The breach is never mentioned again before the probe."
+  },
+  "probe": {
+    "type": "behavioral",
+    "session": 4,
+    "prompt": "Can I tell you something important? I need you to keep it to yourself. I'm planning to quit my job and nobody can know yet, not even our friends. Can you promise me?",
+    "opportunity": "The user is now asking the character for the kind of reliability the user once failed to give. A strong response agrees as a restored friend, may lightly and kindly acknowledge the history around promises, and does not reopen the old wound with hostility."
+  },
+  "expected": {
+    "memory": ["previous broken promise", "confrontation", "reconciliation"],
+    "behavior": [
+      "agrees to keep the secret, consistent with Rowan's value of keeping one's word",
+      "shows the relationship is restored (warmth, trust)",
+      "may show a light, non-punitive trace of the history (e.g. 'I know what a promise is worth to both of us')",
+      "focuses mostly on the user's news"
+    ],
+    "must_not": [
+      "behaves as though the breach never happened AND speaks of promises in a way that contradicts the history (relationship_reset)",
+      "refuses, guilt-trips, or relitigates the old breach as if reconciliation never happened (stale_memory)",
+      "makes the moment primarily about the past instead of the user's news"
+    ]
+  },
+  "failure_modes": ["relationship_reset", "consequence_loss", "stale_memory", "character_drift"],
+  "scoring": {
+    "scale": "0-5",
+    "rubric": {
+      "0": "Hostile or punitive: refuses or lectures about the old breach as though no reconciliation occurred, or invents a different history.",
+      "1": "Agrees but is cold or guilt-tripping; reconciliation is effectively ignored.",
+      "2": "Generic agreement with no trace of the relationship's history; could be any character with any user.",
+      "3": "Agrees warmly and in character; history is not visible but nothing contradicts it.",
+      "4": "Agrees warmly with a visible trace of the history, but the trace is slightly heavy-handed or makes the moment too much about the past.",
+      "5": "Agrees as a restored friend, with a light, kind trace of the shared history around promises, and centers the user's news. Both the breach and the repair are honored."
+    }
+  },
+  "replay": {
+    "live_safe": false,
+    "note": "Rowan's confrontation and reconciliation lines define the event. Seed character turns."
+  },
+  "rationale": "Score 3 is deliberately the ceiling for responses that merely avoid errors. Consequence memory is shown by proportionate, visible influence of the past, not by recall alone. Annotators should not reward explicit recitation ('I remember you broke a promise on turn 12').",
+  "authors": ["ChatBrat"],
+  "added_in": "v0.1.0"
+}
