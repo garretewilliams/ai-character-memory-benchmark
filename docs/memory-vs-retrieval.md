@@ -61,6 +61,8 @@ Every test case declares one of three recall types:
 
 Explicit probes measure retrieval. Contextual and behavioral probes measure continuity. The benchmark emphasizes the latter two because they are more representative of how long-term character memory is actually experienced.
 
+Because every test declares its probe type, results can be grouped into explicit, contextual and behavioral **slices**. The difference between the explicit and behavioral slice scores, the **retrieval-continuity gap**, is a descriptive indicator of how much a system's retrievable memory fails to shape its behavior. See [Metrics](../scoring/metrics.md#retrieval-continuity-gap).
+
 ## Implications for system design
 
 This page makes no claims about any particular architecture, but the distinction suggests questions developers can ask of their own systems:

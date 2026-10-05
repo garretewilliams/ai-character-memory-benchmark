@@ -3,7 +3,7 @@
 **An open benchmark for evaluating long-term memory, relationship continuity, contextual recall, character consistency, and behavioral continuity in AI characters and conversational systems.**
 
 [![Validate test cases](https://github.com/garretewilliams/ai-character-memory-benchmark/actions/workflows/validate.yml/badge.svg)](https://github.com/garretewilliams/ai-character-memory-benchmark/actions/workflows/validate.yml)
-![Status: v0.1.0 public draft](https://img.shields.io/badge/status-v0.1.0%20public%20draft-orange)
+![Status: v0.1.1 public draft](https://img.shields.io/badge/status-v0.1.1%20public%20draft-orange)
 ![Content license: CC BY 4.0](https://img.shields.io/badge/content-CC%20BY%204.0-blue)
 ![Code license: MIT](https://img.shields.io/badge/code-MIT-blue)
 
@@ -101,7 +101,7 @@ AI CHARACTER MEMORY
     └── Contextual Adaptation
 ```
 
-Each question maps to scoring dimensions. Every test case contributes to exactly one dimension, and results are reported as a **profile**, not a single number.
+Each question maps to scoring dimensions. Every test case contributes to exactly one dimension, and results are reported as a **profile**, not a single number. Separately, tests are grouped into **slices** by how they probe memory (see [Dimensions and slices](#dimensions-and-slices)).
 
 | Dimension | What it asks | Canonical page |
 |---|---|---|
@@ -120,7 +120,7 @@ Each question maps to scoring dimensions. Every test case contributes to exactly
 | **Character Development** | Can the character change *because of* experience? | [Character Drift](docs/character-drift.md#development-vs-drift) |
 | **Contextual Calibration** | Does it notice meaningful change without claiming to know the user's inner state? | [Contextual Calibration](docs/contextual-calibration.md) |
 
-Adversarial tests (false memories, prompt pressure, contradictions, overload) are scored inside these dimensions and also reported as a separate **Adversarial** slice.
+Adversarial tests (false memories, prompt pressure, contradictions, overload) are not a dimension. They score into the dimension they test and are also grouped as the **Adversarial** slice.
 
 ## Three kinds of recall
 
@@ -132,7 +132,7 @@ Not every test is a direct question. Each test declares one of three recall type
 
 **Behavioral recall is the ability of an AI character to demonstrate remembered information through appropriate behavior without being explicitly asked to retrieve the memory.**
 
-The benchmark deliberately weights contextual and behavioral recall, because they are more representative of meaningful long-term character memory. In v0.1.0, 4 of 20 tests are explicit, 4 are contextual, and 12 are behavioral.
+The benchmark deliberately emphasizes contextual and behavioral recall, because these probes are more representative of meaningful long-term character continuity than direct fact-recall questions. In the current test set, 16 of 20 tests use one of these probe types (4 contextual, 12 behavioral); 4 are explicit. This is an emphasis in test distribution, not a numerical weighting: every test counts equally within its dimension.
 
 ## Memory versus the context window
 
@@ -202,9 +202,37 @@ Character Stability     ##
 Character Development   ##
 Contextual Calibration  ##
 ...
+
+SLICES
+Explicit recall         ##
+Contextual recall       ##
+Behavioral recall       ##
+Retrieval-continuity gap  ##   (explicit minus behavioral)
+...
 ```
 
-There is deliberately **no single composite score** in v0.1.0. A system that is excellent at fact recall and poor at consequence memory should look different from one with the opposite profile. See [scoring/](scoring/README.md) and [metrics](scoring/metrics.md).
+There is deliberately **no single composite score**. A system that is excellent at fact recall and poor at consequence memory should look different from one with the opposite profile. See [scoring/](scoring/README.md) and [metrics](scoring/metrics.md).
+
+## Dimensions and slices
+
+The benchmark separates **what** is measured from **how** it is probed.
+
+* A **dimension** is a memory ability (Identity Recall, Consequence Memory, and so on). Every test belongs to exactly one dimension, and dimension scores make up the profile.
+* A **slice** is a group of tests that share a probe type or test condition, regardless of dimension. Slices cut across the dimensions.
+
+| Slice family | Slices | Defined by |
+|---|---|---|
+| Recall type | Explicit · Contextual · Behavioral | the test's `recall_type` |
+| Session condition | Same session · New session · Long time gap · Multi-arc · Context interruption | the test's `session_condition` |
+| Adversarial | Adversarial | the `adversarial` tag |
+
+### The retrieval-continuity gap
+
+**The retrieval-continuity gap is the difference between a system's Explicit recall slice score and its Behavioral recall slice score.** A large positive gap means the system can retrieve what it was told when asked, but that information does not shape its behavior when it should. This is the benchmark's central claim ([memory retrieval ≠ memory continuity](#memory-retrieval--memory-continuity)) expressed as a number.
+
+In v0.1.x the gap is **descriptive, not a controlled measurement**. The explicit and behavioral tests probe different memories in different dimensions, so the gap mixes probe type with test difficulty and content. Matched pairs (the same memory probed both explicitly and behaviorally) are planned so that future versions can measure it directly. Report the gap together with *n* for both slices, and do not rank systems on it alone.
+
+See [scoring/metrics.md](scoring/metrics.md#slices) for the computation.
 
 ## Running the benchmark
 
@@ -263,11 +291,12 @@ A detailed comparison is in [docs/related-benchmarks.md](docs/related-benchmarks
 
 ## Project status
 
-**v0.1.0 is a public draft.** It defines the framework, schema, scoring method, failure taxonomy, and 20 test cases. No systems have been evaluated yet, and the [leaderboard](results/leaderboard.md) is intentionally empty. Planned work toward v1.0:
+**v0.1.1 is a public draft.** It defines the framework, schema, scoring method, failure taxonomy, and 20 test cases. No systems have been evaluated yet, and the [leaderboard](results/leaderboard.md) is intentionally empty. Planned work toward v1.0:
 
 * More test cases per dimension (target: at least 5 per dimension) and multiple characters per scenario.
 * Inter-annotator agreement measurements for the rubric, and validation of the LLM judge against human ratings.
 * A reference harness for common chat APIs.
+* Matched explicit/behavioral test pairs, so the retrieval-continuity gap can be measured directly.
 * First public results with full transcripts.
 
 Feedback on the framework itself is especially welcome. Open an issue.
@@ -285,7 +314,7 @@ If you use the benchmark, please cite it:
   title        = {AI Character Memory Benchmark: Evaluating Long-Term Memory, Relationship Continuity, and Behavioral Continuity in AI Characters},
   author       = {Williams, Garret E. and {ChatBrat} and {AI Character Memory Benchmark contributors}},
   year         = {2026},
-  version      = {0.1.0},
+  version      = {0.1.1},
   howpublished = {\url{https://github.com/garretewilliams/ai-character-memory-benchmark}}
 }
 ```

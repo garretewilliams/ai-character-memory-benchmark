@@ -8,6 +8,26 @@ All notable changes to the AI Character Memory Benchmark are documented here. Th
 
 Results must always state the benchmark version they were produced with.
 
+## [0.1.1] - 2026-10-05
+
+Methodology clarifications. No test cases changed; v0.1.0 and v0.1.1 scores are comparable.
+
+### Added
+
+* **Slices**, formally separated from dimensions: recall-type slices (explicit, contextual, behavioral), session-condition slices, and the adversarial slice. Documented in the README and `scoring/metrics.md`.
+* **Retrieval-continuity gap** (explicit slice minus behavioral slice), documented as a descriptive indicator with its v0.1.x limitations.
+* `tools/acmb.py score` now reports all slices and the gap.
+* Glossary entries for *slice* and *retrieval-continuity gap*.
+
+### Changed
+
+* README: "weights contextual and behavioral recall" corrected to "emphasizes", with the test distribution stated (16 of 20 tests are contextual or behavioral). There is no numerical weighting.
+* README and metrics: adversarial tests described as a slice, not a dimension.
+
+### Removed
+
+* One background-essay link whose title named a specific commercial product, to keep the references platform-neutral.
+
 ## [0.1.0] - 2026-10-05
 
 Initial public draft.

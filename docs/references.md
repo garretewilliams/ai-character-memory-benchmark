@@ -59,5 +59,4 @@ These are informal writings by the maintainer that motivated parts of the framew
 
 * [AI Character Long-Term Memory](https://github.com/garretewilliams/ai-character-long-term-memory): notes on memory, context and contextual inference in AI roleplay, including the distinction between fact memory and experience memory.
 * [AI Chat That Remembers: Persistent Memory, Not a Reset](https://chatbrat.ai/ai-chat-that-remembers) (ChatBrat): on persistent memory and relationship continuity.
-* [Why Does Character.AI Keep Forgetting Everything After 20 Messages?](https://chatbrat.ai/bratlog/why-character-ai-forgets-everything) (ChatBrat Bratlog): a general explainer on why AI characters forget (context limits, summarization and retrieval).
 * [The Ultimate AI Roleplay Setup Guide: Memory, Lorebooks, and Multi-Character Scenes](https://medium.com/@chatbrat.ai/the-ultimate-ai-roleplay-setup-guide-memory-lorebooks-and-multi-character-scenes-2626e78b8c24) (ChatBrat on Medium): on memory and lore in long-term roleplay.

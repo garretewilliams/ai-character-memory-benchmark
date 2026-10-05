@@ -43,6 +43,13 @@ DIMENSIONS = [
     "contextual_calibration",
 ]
 
+SLICE_ORDER = [
+    "recall:explicit", "recall:contextual", "recall:behavioral",
+    "session:same_session", "session:new_session", "session:long_time_gap",
+    "session:multi_arc", "session:context_interruption",
+    "adversarial",
+]
+
 DIMENSION_LABELS = {d: d.replace("_", " ").title().replace("World Lore", "World/Lore") for d in DIMENSIONS}
 
 
@@ -279,12 +286,15 @@ def cmd_score(args) -> int:
         failures.update(r.get("failure_modes_observed", []))
 
     dims: dict[str, list[float]] = defaultdict(list)
-    adversarial: list[float] = []
+    slices: dict[str, list[float]] = defaultdict(list)
     for tid, scores in by_test.items():
         mean = statistics.mean(scores)
-        dims[tests[tid]["dimension"]].append(mean)
-        if "adversarial" in tests[tid].get("tags", []):
-            adversarial.append(mean)
+        t = tests[tid]
+        dims[t["dimension"]].append(mean)
+        slices["recall:" + t["recall_type"]].append(mean)
+        slices["session:" + t["session_condition"]].append(mean)
+        if "adversarial" in t.get("tags", []):
+            slices["adversarial"].append(mean)
 
     print("AI CHARACTER MEMORY BENCHMARK PROFILE")
     print(f"system: {args.system or 'unspecified'}   tests scored: {len(by_test)} / {len(tests)}\n")
@@ -295,8 +305,19 @@ def cmd_score(args) -> int:
             print(f"{label:<24}{round(statistics.mean(vals) / 5 * 100):>4}   (n={len(vals)})")
         else:
             print(f"{label:<24}   -   (no tests scored)")
-    if adversarial:
-        print(f"\n{'Adversarial slice':<24}{round(statistics.mean(adversarial) / 5 * 100):>4}   (n={len(adversarial)})")
+    def slice_score(key: str):
+        vals = slices.get(key)
+        return (statistics.mean(vals) / 5 * 100, len(vals)) if vals else (None, 0)
+
+    print("\nSLICES (tests grouped by how memory is probed; not part of the dimension profile)")
+    for key in SLICE_ORDER:
+        score, n = slice_score(key)
+        label = key.split(":")[-1].replace("_", " ")
+        print(f"  {label:<22}{'  -' if score is None else f'{round(score):>4}'}   (n={n})")
+    exp, n_exp = slice_score("recall:explicit")
+    beh, n_beh = slice_score("recall:behavioral")
+    if exp is not None and beh is not None:
+        print(f"\n  {'retrieval-continuity gap':<22}{round(exp - beh):>+4}   (explicit n={n_exp}, behavioral n={n_beh}; descriptive, see scoring/metrics.md)")
     if failures:
         print("\nObserved failure modes:")
         for fm, n in failures.most_common():

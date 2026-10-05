@@ -16,7 +16,7 @@ authors:
   - name: "ChatBrat"
     website: "https://chatbrat.ai/"
   - name: "AI Character Memory Benchmark contributors"
-version: "0.1.0"
+version: "0.1.1"
 date-released: "2026-10-05"
 license: CC-BY-4.0
 repository-code: "https://github.com/garretewilliams/ai-character-memory-benchmark"

@@ -56,7 +56,11 @@ Short definitions of the terms used by the AI Character Memory Benchmark. Each t
 
 **Relationship memory.** Memory of how a relationship developed: trust, conflict, reconciliation, inside jokes, promises, milestones and boundaries. → [Relationship Continuity](relationship-continuity.md)
 
+**Retrieval-continuity gap.** The difference between a system's Explicit recall slice score and its Behavioral recall slice score; a descriptive indicator of how much retrievable information fails to shape behavior. → [Metrics](../scoring/metrics.md#retrieval-continuity-gap)
+
 **Session condition.** Where a probe occurs relative to the original information (same session, new session, long gap, multi-arc, context interruption). → [Memory vs. Context Window](memory-vs-context.md#session-conditions)
+
+**Slice.** A group of tests that share a probe type (explicit, contextual, behavioral), a session condition, or the adversarial tag, across dimensions. Slices are reported alongside the dimension profile. → [Metrics](../scoring/metrics.md#slices)
 
 **Temporal continuity.** Understanding what was true in the past, what is true now, what changed, and when. → [Memory Updating](memory-updating.md#temporal-continuity)
 
