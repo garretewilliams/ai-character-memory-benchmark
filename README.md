@@ -301,6 +301,10 @@ A detailed comparison is in [docs/related-benchmarks.md](docs/related-benchmarks
 
 Feedback on the framework itself is especially welcome. Open an issue.
 
+## Related reading
+
+For a broader discussion of character quality, including personality, humor, emotional responsiveness, roleplay and memory, see [What Makes an AI Character Worth Coming Back To?](https://github.com/garretewilliams/sfw-ai-roleplay-and-conversational-intimacy). This research-informed design brief proposes qualities and evaluation ideas; it does not report benchmark results or claim that any AI system performs better than another.
+
 ## Contributing
 
 New test cases, critiques of the methodology, and evaluation results are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md). All test cases are validated automatically against the schema on every pull request.
